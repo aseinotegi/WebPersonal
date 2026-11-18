@@ -18,7 +18,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { palette, site, person } = require('./config/site');
+const { palette, site } = require('./config/site');
 const { scenes } = require('./content/scenes');
 const profile = require('./content/profile');
 const { drawPlant } = require('./plant');
@@ -113,7 +113,7 @@ function build() {
     projects: renderProjects({ scenes }),
     career: renderCareer(profile.career),
     contact: renderContact(profile.contact),
-    footer: renderFooter({ sourceUrl: `${person.github.url}/WebPersonal` }),
+    footer: renderFooter(),
     script: buildScript(buildClientConfig(plant.layout)),
   });
 

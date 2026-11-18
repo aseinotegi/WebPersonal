@@ -74,25 +74,22 @@ footer .copy { margin: 28px 0 0; font-size: 13px; }
 .dock .ink path { vector-effect: non-scaling-stroke; }
 #dock-bot { transform: translate(var(--home), var(--y)); transition: transform 2.8s cubic-bezier(.45, 0, .2, 1); }
 #dock-led { fill: var(--accent); animation: dock-led 1.6s ease-in-out infinite; }
-.dock .battery .bar { fill: var(--accent); animation: dock-bar .25s ease-out both; }
-.dock .battery .bar:nth-of-type(1) { animation-delay: .5s; }
-.dock .battery .bar:nth-of-type(2) { animation-delay: 1s; }
-.dock .battery .bar:nth-of-type(3) { animation-delay: 1.5s; }
+.dock .battery .bolt { fill: var(--accent); animation: dock-bolt .5s ease-out .5s both, dock-led 1.6s ease-in-out 1s infinite; }
 .dock .battery { transition: opacity .4s ease .2s; }
-.made a { white-space: nowrap; }
-.made { margin: 18px 0 0; font-size: 13px; color: var(--soft); transition: opacity .6s ease 1.9s, transform .6s ease 1.9s; }
+.made { margin: 18px 0 0; font-size: 13px; color: var(--soft); transition: opacity .6s ease 1.4s, transform .6s ease 1.4s; }
 
 .dock.away #dock-bot { transform: translate(var(--start), var(--y)); transition: none; }
 .dock.moving .bob { animation: dock-bob .3s ease-in-out infinite; }
 :is(.dock.away, .dock.moving) #dock-led { fill: var(--alarm); animation: none; }
 :is(.dock.away, .dock.moving) .battery { opacity: 0; transition: none; }
-:is(.dock.away, .dock.moving) .battery .bar { animation: none; opacity: 0; }
+:is(.dock.away, .dock.moving) .battery .bolt { animation: none; opacity: 0; }
 :is(.dock.away, .dock.moving) .made { opacity: 0; transform: translateY(6px); transition: none; }
 
 @keyframes dock-led { 50% { opacity: .35; } }
-@keyframes dock-bar { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dock-bolt { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
+.dock .battery .bolt { transform-box: fill-box; transform-origin: center; }
 @keyframes dock-bob { 50% { transform: translateY(-.7px); } }
-@media (prefers-reduced-motion: reduce) { #dock-led { animation: none; } }
+@media (prefers-reduced-motion: reduce) { #dock-led, .dock .battery .bolt { animation: none; } }
 
 @media (max-width: 900px) {
   .contact { grid-template-columns: 1fr; }

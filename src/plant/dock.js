@@ -28,16 +28,16 @@ function drawStation() {
   sk.polyline([[226, 25], [220, 32.5], [225, 32.5], [219, 40]], { strokeWidth: 0.8, roughness: 0.3 }); // bolt
   sk.curve([[236, 40], [246, 41], [252, 45], [256, 46]], { strokeWidth: 0.6, roughness: 0.4 }); // cable
 
-  // Battery above the parked robot; its bars are filled by CSS.
+  // Battery above the parked robot, with a bolt that lights up when it starts charging.
   const battery = new Sketch({ seed: 57 });
-  battery.rect(178, 4, 17, 8, { strokeWidth: 0.7, roughness: 0.4 });
-  battery.rect(195, 6.5, 2, 3, { strokeWidth: 0.6, roughness: 0.3 });
-  const bars = [0, 1, 2].map((i) => `<rect class="bar" x="${180 + i * 5}" y="5.8" width="3.6" height="4.4" rx=".6"/>`).join('');
+  battery.rect(176, 2, 21, 10.5, { strokeWidth: 0.7, roughness: 0.4 });
+  battery.rect(197, 5.5, 2.4, 4, { strokeWidth: 0.6, roughness: 0.3 });
+  const bolt = '<path class="bolt" d="M188.6 3 L183.4 7.9 H186.9 L185.1 11.5 L190.8 6.3 H187.3 Z"/>';
 
   return (
     `<g class="ink">${thickenStrokes(sk.strokeMarkup())}</g>` +
     `<circle id="dock-led" cx="224" cy="21.5" r="1.6"/>` +
-    `<g class="battery"><g class="ink">${thickenStrokes(battery.strokeMarkup())}</g>${bars}</g>`
+    `<g class="battery"><g class="ink">${thickenStrokes(battery.strokeMarkup())}</g>${bolt}</g>`
   );
 }
 

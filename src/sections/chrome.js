@@ -38,11 +38,11 @@ function renderHeader() {
 }
 
 /** Footer: the robot goes back to its charging station, then the credits. */
-function renderFooter({ sourceUrl }) {
+function renderFooter() {
   return `<footer class="wrap">
   <div class="dock" id="dock">
     ${drawDock()}
-    <p class="made">Dibujada a mano y programada desde cero · <a href="${sourceUrl}" target="_blank" rel="noopener">Ver el código ↗</a></p>
+    <p class="made">Dibujada a mano y programada desde cero</p>
   </div>
   <p class="copy">© ${new Date().getFullYear()} ${person.name}</p>
 </footer>`;
