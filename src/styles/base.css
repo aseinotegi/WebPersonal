@@ -1,0 +1,45 @@
+/*
+ * Base: engineer's whiteboard. Night-blue background with a dot grid, hand-drawn
+ * illustrations as the main element, text on the left, drawing on the right.
+ * Colour tokens (--bg, --ink, --accent…) are generated from src/config/site.js.
+ */
+
+:root {
+  --display: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  background-image: radial-gradient(rgba(230, 237, 247, .11) 1px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible,
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+svg text { font-family: var(--body); }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 18px; }
+}

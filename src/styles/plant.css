@@ -1,0 +1,36 @@
+/* The plant drawing: strokes, labels, badges and the travelling data packets. */
+
+#world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* Strokes keep their width whatever the camera zoom. */
+#world .ink path { vector-effect: non-scaling-stroke; }
+
+/* Labels inside the drawing. */
+#world .t-accent    { fill: var(--accent); font: 700 12.5px var(--body); letter-spacing: 1.4px; }
+#world .t-accent-sm { fill: var(--accent); font: 700 12px var(--body); letter-spacing: 1.2px; }
+#world .t-note      { fill: var(--soft); font: 600 13px var(--body); }
+#world .t-note-sm   { fill: var(--soft); font: 600 11px var(--body); }
+#world .t-strong    { fill: var(--ink); font: 800 19px var(--display); }
+#world .t-value     { fill: #fff; font: 800 31px var(--display); }
+#world .t-alarm     { fill: var(--alarm); font: 700 13px var(--body); text-anchor: middle; }
+#world .t-ruler     { fill: var(--soft); font: 700 12px var(--body); letter-spacing: 2px; }
+#world .t-protocol  { fill: var(--soft); font: italic 700 13px var(--body); }
+
+/* Badges switched on by the script for one scene. */
+#world .badge { opacity: 0; transition: opacity .4s ease; }
+#world .badge.on { opacity: 1; }
+#world .badge rect { fill: var(--bg); stroke: var(--accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+#world .badge text { fill: var(--ink); font: 600 14px var(--mono); }
+#world .badge.alarm rect { stroke: var(--alarm); }
+#world .badge.alarm text { fill: var(--alarm); }
+#world .flash { fill: rgba(34, 211, 238, .13); stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 6 6; vector-effect: non-scaling-stroke; }
+
+/* Value label that follows the packet. */
+#lab rect { fill: var(--bg); stroke: var(--accent); stroke-width: 1.5; }
+#lab text { fill: var(--ink); font: 600 15.5px var(--mono); }
+
+/* Packets: the vision value (cyan, with a trail) and the PLC value (white). */
+#pk .core, #pk .tr { fill: var(--accent); }
+#pk .halo { fill: var(--accent); opacity: .35; filter: url(#blur); }
+#pk2 .core { fill: var(--ink); }
+#pk2 .halo { fill: var(--ink); opacity: .3; filter: url(#blur); }
