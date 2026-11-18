@@ -38,7 +38,7 @@ function renderCaption(scene, index, total) {
         <p class="lvl">${scene.zone}</p>
         ${heading}
         <p class="txt">${scene.text}</p>${scene.project ? renderProject(scene) : ''}
-        ${index === 0 ? '<p class="hint">Haz scroll <span aria-hidden="true">↓</span></p>' : ''}
+        ${index === 0 ? '<p class="hint">Sigue al robot <span aria-hidden="true">↓</span></p>' : ''}
         ${index === total - 1 ? '<a class="btn primary" href="#proyectos">Ver la lista <span aria-hidden="true">↓</span></a>' : ''}
       </article>`;
 }

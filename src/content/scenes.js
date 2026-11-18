@@ -22,8 +22,8 @@ const scenes = [
   {
     id: 'intro',
     zone: 'Planta',
-    title: 'Sigue al robot.',
-    text: 'Este robot hace la ronda de inspección en una planta de proceso. Baja despacio y verás qué pasa con una sola lectura, desde que la toma hasta que alguien actúa. Lo que voy rodeando en la pizarra lo he hecho yo.',
+    title: 'Un dato. Todo el camino.',
+    text: 'OT e IT llevan años sin entenderse. Baja despacio y mira cómo una sola lectura sale de la planta, cruza al otro lado y acaba en una decisión. Lo que voy rodeando en la pizarra lo he hecho yo.',
   },
   {
     id: 'photo',
