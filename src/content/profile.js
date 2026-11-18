@@ -17,10 +17,10 @@ const facts = [
 
 const workflow = {
   principles: [
-    { title: 'Primero, qué falla de verdad', text: 'Antes de programar nada miro qué está fallando en planta y cuántas veces pasa. De ahí sale lo que hay que hacer.' },
+    { title: 'Cada planta es un mundo', text: 'No voy con una receta hecha. Veo el caso concreto, qué hay y qué se quiere conseguir, y a partir de ahí ayudo a sacarlo adelante.' },
     { title: 'Pruebo en mi mesa', text: 'Monto simuladores para probar la lógica sin la planta. Así, cuando llego al robot o a la celda, las sorpresas son las justas.' },
     { title: 'Despacio y con red', text: 'Al principio el sistema solo avisa. Cuando ya me fío, lo dejo actuar, y se va metiendo robot a robot y planta a planta.' },
-    { title: 'Que funcione sin mí', text: 'Contenedores, chequeos de salud y documentación, para que el equipo de planta lo despliegue y lo mantenga sin tener que llamarme.' },
+    { title: 'Que funcione sin mí', text: 'Contenedores, avisos si algo se cae y documentación, para que el equipo de planta lo despliegue y lo mantenga sin tener que llamarme.' },
   ],
 };
 
