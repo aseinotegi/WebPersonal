@@ -113,7 +113,7 @@ function build() {
     projects: renderProjects({ scenes }),
     career: renderCareer(profile.career),
     contact: renderContact(profile.contact),
-    footer: renderFooter(profile.motto),
+    footer: renderFooter(),
     script: buildScript(buildClientConfig(plant.layout)),
   });
 

@@ -36,9 +36,8 @@ function renderHeader() {
 </header>`;
 }
 
-function renderFooter(motto) {
+function renderFooter() {
   return `<footer class="wrap">
-  <em>${motto}</em>
   <span>© ${new Date().getFullYear()} ${person.name}</span>
 </footer>`;
 }

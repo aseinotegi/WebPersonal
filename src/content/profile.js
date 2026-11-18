@@ -54,6 +54,4 @@ const contact = {
   text: 'Si algo de lo que has visto te interesa, o simplemente quieres hablar de PLCs, datos o robots, escríbeme.',
 };
 
-const motto = 'Del sensor al dato, del dato a la decisión.';
-
-module.exports = { about, facts, career, contact, motto };
+module.exports = { about, facts, career, contact };
