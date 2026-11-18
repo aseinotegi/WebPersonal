@@ -78,7 +78,7 @@ const scenes = [
       number: '06',
       area: 'Reglas y alarmas',
       indexTitle: 'Reglas y alarmas en tiempo real',
-      repo: { url: `${GITHUB}/robot-fleet-watchdogs-showcase`, title: 'Watchdogs para la flota de robots' },
+      repo: { url: `${GITHUB}/robot-fleet-watchdogs`, title: 'Watchdogs para la flota de robots' },
     },
     title: 'La regla cruza las dos fuentes',
     text: 'Un servicio suscrito al UNS compara la lectura de la visión con la del PLC. Si las dos superan el límite, la alarma es real y no un error de lectura: se ordena al robot cerrar XV-104. Primero avisa; cuando hay confianza, actúa.',
