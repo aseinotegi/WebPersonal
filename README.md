@@ -108,7 +108,8 @@ flowchart LR
 │   ├── repo-previews.js ← GitHub social previews of the pinned repos (npm run previews)
 │   ├── build.js            ← writes the SVGs to build/brand/
 │   └── exports/            ← final PNGs (card, LinkedIn banner, 16:9 background, CV header)
-└── tools/screenshots.js    ← every scene on desktop and phone, for review
+├── tools/screenshots.js    ← every scene on desktop and phone, for review
+└── tools/og-image.js       ← og.png, the image shown when the link is shared
 ```
 
 ### How the pieces relate
@@ -151,6 +152,7 @@ npm install
 npm run build         # src/ → index.html
 npm run brand         # brand pieces → build/brand/*.svg
 npm run screenshots   # every scene, desktop + phone → build/screenshots/
+npm run og            # share image (last scene) → og.png
 ```
 
 ### Adding a scene
