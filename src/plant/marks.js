@@ -19,7 +19,7 @@ const marks = {
   '03': { center: [665, 1205], radii: [152, 108], tilt: 0, tag: -35 }, // vision result
   '04': { center: [600, 1560], radii: [74, 66], tilt: 0, tag: 215 }, // UNS hub
   '05': { center: [262, 1574], radii: [78, 72], tilt: 0, tag: -45 }, // PLC
-  '06': { center: [1040, 1586], radii: [150, 84], tilt: 0, tag: 35 }, // rule engine
+  '06': { center: [1040, 1574], radii: [166, 100], tilt: 0, tag: 150 }, // rule engine
   '07': { center: [612, 396], radii: [142, 96], tilt: -6, tag: 35 }, // robot arm and valve
   '08': { center: [600, 1916], radii: [228, 152], tilt: 0, tag: -30 }, // dashboard
 };

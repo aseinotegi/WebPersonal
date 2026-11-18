@@ -20,7 +20,7 @@ function drawOverlays() {
   return [
     `<polygon class="badge flash" id="b-flash" points="${robotCamera[0]},${robotCamera[1]} 484,146 558,146"/>`,
     badge('b-photo', 520, 70, 'foto · PI-104'),
-    badge('b-alarm', ruleEngine[0] + 110, ruleEngine[1] - 70, 'ALARMA CONFIRMADA', 'alarm'),
+    badge('b-alarm', ruleEngine[0] + 110, ruleEngine[1] - 112, 'ALARMA CONFIRMADA', 'alarm'),
     badge('b-valve', 760, 400, 'XV-104 cerrada ✓'),
   ].join('');
 }

@@ -15,6 +15,10 @@
 #world .t-alarm     { fill: var(--alarm); font: 700 13px var(--body); text-anchor: middle; }
 #world .t-ruler     { fill: var(--soft); font: 700 12px var(--body); letter-spacing: 2px; }
 #world .t-protocol  { fill: var(--soft); font: italic 700 13px var(--body); }
+#world .t-code        { fill: var(--ink); font: 500 15px var(--mono); }
+#world .t-code .k     { fill: var(--accent); font-weight: 700; }
+#world .t-code .n     { fill: var(--alarm); }
+#world .t-code-strong { fill: #fff; font: 700 17px var(--mono); }
 
 /* Badges switched on by the script for one scene. */
 #world .badge { opacity: 0; transition: opacity .4s ease; }

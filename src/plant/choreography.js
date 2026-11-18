@@ -34,7 +34,7 @@ const choreography = {
   uns: { anchor: 'uns', camera: [700, 1580, 980], robotX: inspectionX, label: 'pi-104/presion = 6,8', badges: ['m-04'] },
   // The main packet stays in the UNS while the PLC value travels in (see client/story.js).
   plc: { anchor: 'uns', camera: [400, 1580, 960], robotX: inspectionX, plcPublishes: true, badges: ['m-05'] },
-  rules: { anchor: 'ruleEngine', camera: [900, 1560, 900], robotX: inspectionX, badges: ['b-alarm', 'm-06'] },
+  rules: { anchor: 'ruleEngine', camera: [985, 1570, 900], robotX: inspectionX, badges: ['b-alarm', 'm-06'] },
   valve: { anchor: 'valve', camera: [660, 370, 760], robotX: inspectionX, zoomOut: 1500, wait: 0.45, closesValve: true, badges: ['m-07'] },
   dashboard: { anchor: 'dashboard', camera: [640, 1910, 880], robotX: inspectionX, zoomOut: 1300, label: 'pt-104/presion = 4,2', badges: ['m-08'] },
   outro: { anchor: 'dashboard', camera: [620, 1080, 4000], robotX: inspectionX, badges: allMarks, map: true },
