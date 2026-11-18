@@ -42,7 +42,7 @@ function renderFooter() {
   return `<footer class="wrap">
   <div class="dock" id="dock">
     ${drawDock()}
-    <p class="made">Dibujada a mano y programada desde cero</p>
+    <p class="made">Hecha desde cero, trazo a trazo</p>
   </div>
   <p class="copy">© ${new Date().getFullYear()} ${person.name}</p>
 </footer>`;
