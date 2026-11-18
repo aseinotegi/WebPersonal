@@ -67,10 +67,10 @@ const scenes = [
       number: '03',
       area: 'Visión artificial',
       indexTitle: 'Lectura de medidores con visión',
-      mine: 'El detector lo entrené con fotos reales de planta, con reflejos, suciedad y ángulos raros. La lectura la saca un modelo multimodal a partir del recorte.',
-      repo: { url: `${GITHUB}/level-gauge-vision-showcase`, title: 'Lectura de medidores con visión', kind: 'case' },
+      mine: 'En planta entrené un detector con fotos reales. En el repo lo hago de otra forma. El robot sabe en qué punto está y qué tiene delante, así que se lo pregunto a un modelo multimodal. Un caso nuevo, como un extintor, es cambiar la pregunta. Y puede ir con un modelo local.',
+      repo: { url: `${GITHUB}/poi-vision-inspector`, title: 'Inspección visual por punto de interés', kind: 'code' },
     },
-    tech: ['Detección de objetos', 'IA multimodal', 'Python'],
+    tech: ['IA multimodal', 'Modelo local', 'Detección de objetos', 'Python'],
   },
   {
     id: 'uns',
