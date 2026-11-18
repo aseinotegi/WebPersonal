@@ -64,30 +64,29 @@ h3 { font-family: var(--display); font-weight: 700; font-size: 21px; line-height
 .links li { display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
 .links span { color: var(--soft); font-size: 13px; text-transform: uppercase; letter-spacing: .1em; padding-top: 2px; }
 
-footer { padding: 72px 0 36px; color: var(--soft); font-size: 14px; text-align: center; }
-footer .copy { margin: 28px 0 0; font-size: 13px; }
+footer { padding: 72px 0 56px; color: var(--soft); font-size: 14px; text-align: center; }
+footer .copy { margin: 40px 0 0; font-size: 13px; }
 
-/* The robot back at its charging station. Base state = parked and charged;
-   the script adds .away first and .moving while it drives home. */
+/* The robot back at its charging station. Base state = parked and charging.
+   With .scrub the script drives it with the scroll and adds .charged only at
+   the very bottom of the page. */
 .dock { max-width: 520px; margin: 0 auto; }
 .dock svg { display: block; width: 100%; height: auto; overflow: visible; }
 .dock .ink path { vector-effect: non-scaling-stroke; }
-#dock-bot { transform: translate(var(--home), var(--y)); transition: transform 2.8s cubic-bezier(.45, 0, .2, 1); }
+#dock-bot { transform: translate(var(--home), var(--y)); }
 #dock-led { fill: var(--accent); animation: dock-led 1.6s ease-in-out infinite; }
-.dock .battery .bolt { fill: var(--accent); animation: dock-bolt .5s ease-out .5s both, dock-led 1.6s ease-in-out 1s infinite; }
-.dock .battery { transition: opacity .4s ease .2s; }
-.made { margin: 18px 0 0; font-size: 13px; color: var(--soft); transition: opacity .6s ease 1.4s, transform .6s ease 1.4s; }
+.dock .battery { transition: opacity .3s ease; }
+.dock .battery .bolt { fill: var(--accent); transform-box: fill-box; transform-origin: center; animation: dock-bolt .45s ease-out .25s both, dock-led 1.6s ease-in-out .7s infinite; }
+.made { margin: 24px 0 0; font-size: 13px; color: var(--soft); transition: opacity .5s ease .5s, transform .5s ease .5s; }
 
-.dock.away #dock-bot { transform: translate(var(--start), var(--y)); transition: none; }
 .dock.moving .bob { animation: dock-bob .3s ease-in-out infinite; }
-:is(.dock.away, .dock.moving) #dock-led { fill: var(--alarm); animation: none; }
-:is(.dock.away, .dock.moving) .battery { opacity: 0; transition: none; }
-:is(.dock.away, .dock.moving) .battery .bolt { animation: none; opacity: 0; }
-:is(.dock.away, .dock.moving) .made { opacity: 0; transform: translateY(6px); transition: none; }
+.dock.scrub:not(.charged) #dock-led { fill: var(--alarm); animation: none; }
+.dock.scrub:not(.charged) .battery { opacity: 0; }
+.dock.scrub:not(.charged) .battery .bolt { animation: none; opacity: 0; }
+.dock.scrub:not(.charged) .made { opacity: 0; transform: translateY(6px); transition-delay: 0s; }
 
 @keyframes dock-led { 50% { opacity: .35; } }
 @keyframes dock-bolt { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
-.dock .battery .bolt { transform-box: fill-box; transform-origin: center; }
 @keyframes dock-bob { 50% { transform: translateY(-.7px); } }
 @media (prefers-reduced-motion: reduce) { #dock-led, .dock .battery .bolt { animation: none; } }
 
