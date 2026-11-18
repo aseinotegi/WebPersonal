@@ -4,6 +4,7 @@
 
 const { fonts, preloadFonts, person } = require('../config/site');
 const { monogram } = require('../drawing/flourishes');
+const { drawDock } = require('../plant/dock');
 
 function renderFontPreloads() {
   return preloadFonts
@@ -36,9 +37,14 @@ function renderHeader() {
 </header>`;
 }
 
-function renderFooter() {
+/** Footer: the robot goes back to its charging station, then the credits. */
+function renderFooter({ sourceUrl }) {
   return `<footer class="wrap">
-  <span>© ${new Date().getFullYear()} ${person.name}</span>
+  <div class="dock" id="dock">
+    ${drawDock()}
+    <p class="made">Dibujada a mano y programada desde cero · <a href="${sourceUrl}" target="_blank" rel="noopener">Ver el código ↗</a></p>
+  </div>
+  <p class="copy">© ${new Date().getFullYear()} ${person.name}</p>
 </footer>`;
 }
 

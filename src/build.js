@@ -18,7 +18,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { palette, site } = require('./config/site');
+const { palette, site, person } = require('./config/site');
 const { scenes } = require('./content/scenes');
 const profile = require('./content/profile');
 const { drawPlant } = require('./plant');
@@ -35,7 +35,7 @@ const OUTPUT = path.join(SRC, '..', 'index.html');
 // Order matters: later files may refine earlier ones.
 const STYLES = ['base.css', 'header.css', 'sections.css', 'story.css', 'plant.css'];
 // Plain scripts sharing one scope; story.js uses the helpers defined before it.
-const SCRIPTS = ['geometry.js', 'camera.js', 'story.js'];
+const SCRIPTS = ['geometry.js', 'camera.js', 'story.js', 'dock.js'];
 
 const read = (...parts) => fs.readFileSync(path.join(SRC, ...parts), 'utf8');
 
@@ -113,7 +113,7 @@ function build() {
     projects: renderProjects({ scenes }),
     career: renderCareer(profile.career),
     contact: renderContact(profile.contact),
-    footer: renderFooter(),
+    footer: renderFooter({ sourceUrl: `${person.github.url}/WebPersonal` }),
     script: buildScript(buildClientConfig(plant.layout)),
   });
 
