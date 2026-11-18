@@ -15,11 +15,7 @@ const facts = [
   { value: 'Del campo al IT', text: 'sensores, PLCs y buses de campo abajo. Contenedores, bases de datos y análisis de imagen arriba' },
 ];
 
-const projectsIntro =
-  'Los mismos números de la pizarra, por si te has saltado la animación. Son casos reales contados sin datos de clientes. Los que tienen código se pueden probar sin hardware.';
-
 const workflow = {
-  intro: 'Hay cosas que hago igual en todos los proyectos, sea un robot, una celda o un PLC.',
   principles: [
     { title: 'Primero, qué falla de verdad', text: 'Antes de programar nada miro qué está fallando en planta y cuántas veces pasa. De ahí sale lo que hay que hacer.' },
     { title: 'Pruebo en mi mesa', text: 'Monto simuladores para probar la lógica sin la planta. Así, cuando llego al robot o a la celda, las sorpresas son las justas.' },
@@ -69,4 +65,4 @@ const contact = {
 
 const motto = 'Del sensor al dato, del dato a la decisión.';
 
-module.exports = { about, facts, projectsIntro, workflow, career, contact, motto };
+module.exports = { about, facts, workflow, career, contact, motto };

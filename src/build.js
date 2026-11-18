@@ -110,7 +110,7 @@ function build() {
     story: renderStory({ scenes, plant }),
     about: renderAbout(profile.about),
     facts: renderFacts(profile.facts),
-    projects: renderProjects({ scenes, intro: profile.projectsIntro }),
+    projects: renderProjects({ scenes }),
     workflow: renderWorkflow(profile.workflow),
     career: renderCareer(profile.career),
     contact: renderContact(profile.contact),

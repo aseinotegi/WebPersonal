@@ -21,16 +21,13 @@ function renderProjectRow(scene, sceneIndex) {
         </li>`;
 }
 
-function renderProjects({ scenes, intro }) {
+function renderProjects({ scenes }) {
   const rows = scenes
     .map((scene, i) => (scene.project ? renderProjectRow(scene, i) : ''))
     .join('');
 
   return `    <section id="proyectos">
-      <div class="sec-head">
-        <h2>Proyectos</h2>
-        <p>${intro}</p>
-      </div>
+      <div class="sec-head"><h2>Proyectos</h2></div>
       <ol class="pindex">${rows}
       </ol>
     </section>`;

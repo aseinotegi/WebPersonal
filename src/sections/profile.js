@@ -31,7 +31,7 @@ ${list(facts, (f) => `      <div class="fact"><b>${f.value}</b><span>${f.text}</
 
 function renderWorkflow(workflow) {
   return `    <section id="como-trabajo">
-      <div class="sec-head"><h2>Cómo trabajo</h2><p>${workflow.intro}</p></div>
+      <div class="sec-head"><h2>Cómo trabajo</h2></div>
       <div class="how">
 ${list(workflow.principles, (p) => `        <div><h3>${p.title}</h3><p>${p.text}</p></div>`)}
       </div>
