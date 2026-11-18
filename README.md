@@ -105,6 +105,7 @@ flowchart LR
 │   └── templates/page.html ← page skeleton with {{placeholders}}
 ├── brand/                  ← same drawing toolkit, other formats
 │   ├── card-front.js · card-back.js · social.js · cv-header.js
+│   ├── repo-previews.js ← GitHub social previews of the pinned repos (npm run previews)
 │   ├── build.js            ← writes the SVGs to build/brand/
 │   └── exports/            ← final PNGs (card, LinkedIn banner, 16:9 background, CV header)
 └── tools/screenshots.js    ← every scene on desktop and phone, for review

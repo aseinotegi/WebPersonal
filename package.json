@@ -8,7 +8,8 @@
   "scripts": {
     "build": "node src/build.js",
     "brand": "node brand/build.js",
-    "screenshots": "node tools/screenshots.js"
+    "screenshots": "node tools/screenshots.js",
+    "previews": "node brand/repo-previews.js"
   },
   "dependencies": {
     "roughjs": "^4.6.6"
