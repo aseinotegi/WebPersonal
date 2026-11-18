@@ -96,6 +96,7 @@ flowchart LR
 │   │   ├── zones/          ← one file per area: process, edge, vision, uns, plc, rules…
 │   │   ├── actors.js       ← parts that move: robot body, arm, valve handwheel
 │   │   ├── overlays.js     ← badges shown per scene (flash, photo, alarm, valve)
+│   │   ├── marks.js        ← marker loop and number around each project
 │   │   ├── choreography.js ← how each scene is staged (camera, robot, label…)
 │   │   └── index.js        ← drawPlant(): draws the zones in order
 │   ├── sections/           ← pure functions: data in, HTML string out
@@ -124,6 +125,7 @@ The story section is `N` screens tall with a sticky stage. Scroll progress `t` g
 - **Camera = viewBox.** Moving the camera is animating the SVG `viewBox` between the `[x, y, width]` frames in the choreography. On phones the frame is narrowed and shifted so the plant sits below the caption.
 - **Long jumps pull back first.** A scene can declare `zoomOut`: the camera widens mid-flight so a jump from the bottom of the plant to the valve reads as "zoom out, then go there" instead of a blur.
 - **The packet follows a real route.** The data packet travels along a smoothed path through the plant; each scene's stop is located on it by length. A second packet carries the PLC value into the UNS.
+- **Projects are circled on the board.** When a scene with a project arrives, a marker loop is drawn around the piece I built and its number appears next to it, the same number as in the caption. In the last scene all the loops are on, so the plant becomes the project map.
 - **Constant on-screen size.** The packet label and its trail are sized in screen pixels, not world units, so they stay readable at every zoom.
 - **Navigation.** Scene dots and the project index jump straight to any scene; with `prefers-reduced-motion` those jumps are instant and the robot does not bounce.
 

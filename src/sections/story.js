@@ -5,24 +5,41 @@
  * scene and the step dots. Animation happens in the browser (src/client).
  */
 
-const { eyebrowOf } = require('../content/scenes');
-
 const list = (items, render) => items.map(render).join('');
 
+const LINK_TEXT = { code: 'Ver el código', case: 'Leer el caso' };
+
+/** Where the project can be seen: its repository, a coming repo, or client work. */
+function renderProjectLink(project) {
+  const { repo, status } = project;
+  if (repo) {
+    return `<a class="repo" href="${repo.url}" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>${LINK_TEXT[repo.kind]} <span aria-hidden="true">↗</span></a>`;
+  }
+  return `<p class="norepo">${status ? 'Repo en camino' : 'Trabajo para clientes, sin repo público'}</p>`;
+}
+
+/** The project behind the piece circled on the drawing, numbered like its mark. */
+function renderProject(scene) {
+  const { project } = scene;
+  return `
+        <div class="mine">
+          <p class="tag"><span class="num">${project.number}</span>${project.area}</p>
+          <p>${project.mine}</p>
+          ${scene.tech ? `<ul class="chips">${list(scene.tech, (t) => `<li>${t}</li>`)}</ul>` : ''}
+          ${renderProjectLink(project)}
+        </div>`;
+}
+
 function renderCaption(scene, index, total) {
-  const number = String(index + 1).padStart(2, '0');
   const heading = index === 0 ? `<h1>${scene.title}</h1>` : `<h2>${scene.title}</h2>`;
-  const repo = scene.project && scene.project.repo;
 
   return `
       <article class="cap${index === 0 ? ' on' : ''}" data-i="${index}">
-        <p class="lvl"><span>${number}</span>${eyebrowOf(scene)}</p>
+        <p class="lvl">${scene.zone}</p>
         ${heading}
-        <p class="txt">${scene.text}</p>
-        ${scene.tech ? `<ul class="chips">${list(scene.tech, (t) => `<li>${t}</li>`)}</ul>` : ''}
-        ${repo ? `<a class="repo" href="${repo.url}" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>${repo.title} <span aria-hidden="true">↗</span></a>` : ''}
+        <p class="txt">${scene.text}</p>${scene.project ? renderProject(scene) : ''}
         ${index === 0 ? '<p class="hint">Haz scroll <span aria-hidden="true">↓</span></p>' : ''}
-        ${index === total - 1 ? '<a class="btn primary" href="#ander">Conóceme <span aria-hidden="true">↓</span></a>' : ''}
+        ${index === total - 1 ? '<a class="btn primary" href="#proyectos">Ver la lista <span aria-hidden="true">↓</span></a>' : ''}
       </article>`;
 }
 
@@ -30,7 +47,7 @@ function renderStory({ scenes, plant }) {
   const captions = scenes.map((scene, i) => renderCaption(scene, i, scenes.length)).join('');
   const dots = list(
     scenes,
-    (scene, i) => `<li><button type="button" data-go="${i}" aria-label="Ir a: ${eyebrowOf(scene)}"${i === 0 ? ' class="on"' : ''}></button></li>`,
+    (scene, i) => `<li><button type="button" data-go="${i}" aria-label="Ir a: ${scene.title}"${i === 0 ? ' class="on"' : ''}></button></li>`,
   );
 
   return `  <section class="story" id="dato" aria-label="La ronda de un robot de inspección: del sensor a la decisión">

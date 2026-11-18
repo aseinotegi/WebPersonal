@@ -170,6 +170,7 @@ function startStory() {
     el.badges.forEach((b) => {
       if (b !== el.valveBadge) b.classList.toggle('on', visibleBadges.includes(b.id));
     });
+    svg.classList.toggle('map', scenes[current].map);
     el.captions.forEach((c, j) => c.classList.toggle('on', j === current));
     el.dots.forEach((d, j) => d.classList.toggle('on', j === current));
   }

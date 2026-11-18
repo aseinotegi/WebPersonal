@@ -37,7 +37,7 @@ const site = {
   title: 'Ander Sein · Del sensor a la decisión',
   shareTitle: 'Ander Sein · Automatización e IIoT',
   description:
-    'Ander Sein, ingeniero de automatización e IIoT en Donostia: sigue la ronda de un robot de inspección, del sensor a la decisión.',
+    'Ander Sein, ingeniero de automatización e IIoT en Donostia. Sigue la ronda de un robot de inspección y verás en qué trabajo.',
   locale: 'es_ES',
 };
 

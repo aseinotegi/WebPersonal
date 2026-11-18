@@ -96,6 +96,7 @@ flowchart LR
 │   │   ├── zones/          ← un fichero por zona: proceso, edge, visión, uns, plc, reglas…
 │   │   ├── actors.js       ← lo que se mueve: cuerpo del robot, brazo, volante de la válvula
 │   │   ├── overlays.js     ← distintivos por escena (flash, foto, alarma, válvula)
+│   │   ├── marks.js        ← círculo de rotulador y número alrededor de cada proyecto
 │   │   ├── choreography.js ← cómo se escenifica cada escena (cámara, robot, etiqueta…)
 │   │   └── index.js        ← drawPlant(): dibuja las zonas en orden
 │   ├── sections/           ← funciones puras: datos de entrada, HTML de salida
@@ -124,6 +125,7 @@ La sección de la historia mide `N` pantallas de alto con un escenario fijo (*st
 - **Cámara = viewBox.** Mover la cámara es animar el `viewBox` del SVG entre los encuadres `[x, y, ancho]` de la coreografía. En móvil el encuadre se estrecha y se desplaza para que la planta quede bajo el texto.
 - **Los saltos largos se alejan primero.** Una escena puede declarar `zoomOut`: la cámara se abre a mitad de camino para que un salto del fondo de la planta a la válvula se lea como "alejarse y volver a entrar" en lugar de un barrido borroso.
 - **El paquete sigue una ruta real.** El paquete de datos recorre un trazado suavizado por la planta y la parada de cada escena se localiza sobre él por longitud. Un segundo paquete lleva el valor del PLC al UNS.
+- **Los proyectos se rodean en la pizarra.** Al llegar a una escena con proyecto se dibuja un círculo de rotulador alrededor de la pieza que he hecho yo, con su número al lado, el mismo que aparece en el texto. En la última escena se encienden todos y la planta queda como mapa de proyectos.
 - **Tamaño constante en pantalla.** La etiqueta del paquete y su estela se dimensionan en píxeles de pantalla, no en unidades del dibujo, para que se lean igual con cualquier zoom.
 - **Navegación.** Los puntos de escena y el índice de proyectos saltan directamente a cualquier escena; con `prefers-reduced-motion` el salto es instantáneo y el robot no traquetea.
 

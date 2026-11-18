@@ -74,6 +74,7 @@ function buildClientConfig(layout) {
       badges: stage.badges || [],
       plcPublishes: Boolean(stage.plcPublishes),
       closesValve: Boolean(stage.closesValve),
+      map: Boolean(stage.map),
     };
   });
 

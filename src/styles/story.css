@@ -22,8 +22,7 @@
 .caps { position: absolute; z-index: 2; left: max(24px, calc((100vw - 1120px) / 2 + 24px)); top: 50%; transform: translateY(-44%); width: min(420px, 40vw); min-height: 300px; }
 .cap { position: absolute; inset: 0 auto auto 0; opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
 .cap.on { opacity: 1; transform: none; pointer-events: auto; }
-.cap .lvl { display: flex; align-items: center; gap: 12px; color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; margin: 0 0 14px; }
-.cap .lvl span { font-family: var(--mono); color: var(--soft); letter-spacing: 0; border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; }
+.cap .lvl { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; margin: 0 0 14px; }
 .cap h1,
 .cap h2 { font-family: var(--display); font-weight: 800; line-height: 1.08; margin: 0 0 16px; text-wrap: balance; letter-spacing: -.01em; }
 .cap h1 { font-size: clamp(34px, 4.6vw, 56px); }
@@ -32,6 +31,14 @@
 .cap .repo { display: inline-flex; align-items: center; gap: 10px; min-height: 42px; padding: 8px 14px 8px 8px; margin: 0 0 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font-weight: 700; font-size: 14px; }
 .cap .repo .gh { font: 600 11px var(--mono); color: var(--bg); background: var(--accent); border-radius: 6px; padding: 3px 7px; }
 .cap .repo:hover { border-color: var(--accent); text-decoration: none; }
+
+/* The project behind the circled piece: same number as the mark on the drawing. */
+.mine { border-left: 2px solid var(--accent); padding: 2px 0 2px 16px; margin: 0 0 8px; }
+.mine p { margin: 0 0 12px; color: var(--ink); font-size: 16px; }
+.mine .tag { display: flex; align-items: center; gap: 10px; color: var(--accent); font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.mine .num { display: inline-grid; place-items: center; width: 30px; height: 30px; border: 2px solid var(--accent); border-radius: 50%; font: 700 12px var(--mono); letter-spacing: 0; }
+.mine .chips { margin-bottom: 12px; }
+.mine .norepo { color: var(--soft); font-size: 14px; font-style: italic; margin: 0; }
 
 .hint { color: var(--accent); font-weight: 700; margin: 0; }
 .hint span { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
@@ -51,6 +58,10 @@
   .cap { inset: auto 0 0 0; }
   .cap .txt { font-size: 16px; margin-bottom: 12px; }
   .cap .repo { font-size: 13px; min-height: 44px; }
+  .cap h2 { margin-bottom: 10px; }
+  .mine { padding-left: 12px; }
+  .mine p { font-size: 15px; margin-bottom: 10px; }
+  .mine .chips { display: none; }
   .steps { right: 12px; top: 96px; transform: none; gap: 9px; }
   .steps button { width: 10px; height: 10px; }
   .skip { left: 18px; right: auto; bottom: 16px; }

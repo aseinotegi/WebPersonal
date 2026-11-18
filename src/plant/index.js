@@ -19,6 +19,7 @@ const { drawPlc } = require('./zones/plc');
 const { drawRuleEngine } = require('./zones/rule-engine');
 const { drawDashboard } = require('./zones/dashboard');
 const { drawOverlays } = require('./overlays');
+const { drawMarks } = require('./marks');
 const { drawHandwheel, drawRobotBody, drawArm } = require('./actors');
 const layout = require('./layout');
 
@@ -38,7 +39,8 @@ function drawPlant() {
     `<g class="ink">${thickenStrokes(sk.strokeMarkup())}</g>` +
     sk.labelMarkup() +
     `<g id="wheel" class="ink">${thickenStrokes(drawHandwheel())}</g>` +
-    drawOverlays();
+    drawOverlays() +
+    drawMarks();
 
   const robot = `${thickenStrokes(drawRobotBody())}<g id="arm" class="ink">${thickenStrokes(drawArm())}</g>`;
 

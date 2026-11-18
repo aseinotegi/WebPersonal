@@ -48,7 +48,7 @@ async function capture() {
         const last = document.querySelectorAll('.cap').length - 1;
         scrollTo({ top: story.offsetTop + span * (index / last), behavior: 'instant' });
       }, scene);
-      await tab.waitForTimeout(700);
+      await tab.waitForTimeout(1400); // let marker loops and badges finish drawing
       await tab.screenshot({ path: path.join(outDir, `${viewport.name}-${String(scene).padStart(2, '0')}.png`) });
     }
 
