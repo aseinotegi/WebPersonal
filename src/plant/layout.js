@@ -12,7 +12,7 @@
 const world = { width: 1240, height: 2140 };
 
 // The robot is drawn at icon scale and placed with a transform (see actors.js).
-const robot = { y: 420, scale: 4, parkedX: 180, inspectionX: 560 };
+const robot = { y: 420, scale: 4, parkedX: 310, inspectionX: 560 };
 const robotCamera = [robot.inspectionX + 4 * robot.scale, robot.y - 10.5 * robot.scale];
 
 const valveWheel = [690, 340];
