@@ -100,7 +100,7 @@ nav a:hover { color: var(--ink); }
   nav li.opt { display: none; }
 }
 
-/* Content below the story: about, facts, projects index, how I work, career, contact. */
+/* Content below the story: about, facts, projects index, career, contact. */
 
 section { padding: 72px 0 8px; }
 
@@ -146,10 +146,6 @@ h3 { font-family: var(--display); font-weight: 700; font-size: 21px; line-height
 .pindex .pi-links em { color: var(--soft); font-weight: 400; }
 
 /* How I work */
-.how { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.how div { border-top: 2px solid var(--accent); padding-top: 16px; }
-.how h3 { font-size: 18px; margin: 0 0 8px; }
-.how p { color: var(--soft); font-size: 15.5px; margin: 0; }
 
 /* Career timeline */
 .tl { list-style: none; margin: 0; padding: 0; border-left: 1.5px dashed var(--line); display: grid; gap: 26px; }
@@ -175,7 +171,6 @@ footer em { color: var(--ink); }
 
 @media (max-width: 900px) {
   .contact { grid-template-columns: 1fr; }
-  .how { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 820px) {
@@ -187,7 +182,6 @@ footer em { color: var(--ink); }
   .facts { grid-template-columns: 1fr; }
   .fact { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--line) !important; }
   .fact:first-child { border-top: 0 !important; }
-  .how { grid-template-columns: 1fr; }
   .contact { padding: 22px; }
   .tl li { grid-template-columns: 1fr; }
   .tl .cell { grid-column: 1; }
@@ -561,15 +555,6 @@ footer em { color: var(--ink); }
         </li>
       </ol>
     </section>
-    <section id="como-trabajo">
-      <div class="sec-head"><h2>Cómo trabajo</h2></div>
-      <div class="how">
-        <div><h3>Cada planta es un mundo</h3><p>No voy con una receta hecha. Veo el caso concreto, qué hay y qué se quiere conseguir, y a partir de ahí ayudo a sacarlo adelante.</p></div>
-        <div><h3>Pruebo en mi mesa</h3><p>Monto simuladores para probar la lógica sin la planta. Así, cuando llego al robot o a la celda, las sorpresas son las justas.</p></div>
-        <div><h3>Despacio y con red</h3><p>Al principio el sistema solo avisa. Cuando ya me fío, lo dejo actuar, y se va metiendo robot a robot y planta a planta.</p></div>
-        <div><h3>Que funcione sin mí</h3><p>Contenedores, avisos si algo se cae y documentación, para que el equipo de planta lo despliegue y lo mantenga sin tener que llamarme.</p></div>
-      </div>
-    </section>
     <section id="trayectoria">
       <div class="sec-head"><h2>Trayectoria</h2></div>
       <ol class="tl">
@@ -586,8 +571,8 @@ footer em { color: var(--ink); }
     <section id="contacto">
       <div class="contact">
         <div>
-          <h2>¿Tienes algo entre manos en planta?</h2>
-          <p>Si va de PLCs, de datos, de visión o de robots, seguramente pueda echarte una mano. Escríbeme y lo hablamos.</p>
+          <h2>¿Hablamos?</h2>
+          <p>Si algo de lo que has visto te interesa, o simplemente quieres hablar de PLCs, datos o robots, escríbeme.</p>
         </div>
         <ul class="links">
           <li><span>Email</span><a href="mailto:aseinotegi@gmail.com">aseinotegi@gmail.com</a></li>

@@ -1,6 +1,6 @@
 'use strict';
 
-/** Everything below the story: about me, key figures, how I work, career and contact. */
+/** Everything below the story: about me, key figures, career and contact. */
 
 const about = {
   eyebrow: 'IIoT · OT/IT · Robótica autónoma · IA',
@@ -14,15 +14,6 @@ const facts = [
   { value: 'Medio mundo', text: 'poniendo en marcha PLCs y sistemas IoT en Estados Unidos, Europa y Japón' },
   { value: 'Del campo al IT', text: 'sensores, PLCs y buses de campo abajo. Contenedores, bases de datos y análisis de imagen arriba' },
 ];
-
-const workflow = {
-  principles: [
-    { title: 'Cada planta es un mundo', text: 'No voy con una receta hecha. Veo el caso concreto, qué hay y qué se quiere conseguir, y a partir de ahí ayudo a sacarlo adelante.' },
-    { title: 'Pruebo en mi mesa', text: 'Monto simuladores para probar la lógica sin la planta. Así, cuando llego al robot o a la celda, las sorpresas son las justas.' },
-    { title: 'Despacio y con red', text: 'Al principio el sistema solo avisa. Cuando ya me fío, lo dejo actuar, y se va metiendo robot a robot y planta a planta.' },
-    { title: 'Que funcione sin mí', text: 'Contenedores, avisos si algo se cae y documentación, para que el equipo de planta lo despliegue y lo mantenga sin tener que llamarme.' },
-  ],
-};
 
 const career = {
   jobs: [
@@ -59,10 +50,10 @@ const career = {
 };
 
 const contact = {
-  title: '¿Tienes algo entre manos en planta?',
-  text: 'Si va de PLCs, de datos, de visión o de robots, seguramente pueda echarte una mano. Escríbeme y lo hablamos.',
+  title: '¿Hablamos?',
+  text: 'Si algo de lo que has visto te interesa, o simplemente quieres hablar de PLCs, datos o robots, escríbeme.',
 };
 
 const motto = 'Del sensor al dato, del dato a la decisión.';
 
-module.exports = { about, facts, workflow, career, contact, motto };
+module.exports = { about, facts, career, contact, motto };

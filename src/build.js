@@ -27,7 +27,7 @@ const { armPivot } = require('./plant/actors');
 const { renderFontPreloads, renderFontFaces, renderHeader, renderFooter } = require('./sections/chrome');
 const { renderStory } = require('./sections/story');
 const { renderProjects } = require('./sections/projects');
-const { renderAbout, renderFacts, renderWorkflow, renderCareer, renderContact } = require('./sections/profile');
+const { renderAbout, renderFacts, renderCareer, renderContact } = require('./sections/profile');
 
 const SRC = __dirname;
 const OUTPUT = path.join(SRC, '..', 'index.html');
@@ -111,7 +111,6 @@ function build() {
     about: renderAbout(profile.about),
     facts: renderFacts(profile.facts),
     projects: renderProjects({ scenes }),
-    workflow: renderWorkflow(profile.workflow),
     career: renderCareer(profile.career),
     contact: renderContact(profile.contact),
     footer: renderFooter(profile.motto),

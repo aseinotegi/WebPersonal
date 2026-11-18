@@ -85,7 +85,7 @@ flowchart LR
 │   ├── config/site.js      ← paleta, fuentes, título/descripción, enlaces de contacto
 │   ├── content/
 │   │   ├── scenes.js       ← las 11 escenas: título, texto, proyecto enlazado
-│   │   └── profile.js      ← textos de perfil, trayectoria, forma de trabajar, contacto
+│   │   └── profile.js      ← textos de perfil, trayectoria, contacto
 │   ├── drawing/            ← kit de dibujo genérico, no sabe nada de la planta
 │   │   ├── sketch.js       ← Sketch: envoltorio de rough.js con semilla (líneas, formas, texto, grupos)
 │   │   ├── svg.js          ← posprocesado del markup (números compactos, grosores)
