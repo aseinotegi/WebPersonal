@@ -11,9 +11,8 @@ const about = {
 
 const facts = [
   { value: '+10 años', text: 'entre planta y oficina técnica, de la puesta en marcha al software' },
-  { value: '5 países', text: 'con puestas en marcha (EEUU, Inglaterra, Francia, Japón y Hungría)' },
-  { value: '4 sistemas', text: 'funcionando en producción con robots de inspección y datos de planta' },
-  { value: 'PLC → IA', text: 'Profinet, OPC UA, Modbus y MQTT por abajo, Python, visión e IA por arriba' },
+  { value: 'Medio mundo', text: 'poniendo en marcha PLCs y sistemas IoT en Estados Unidos, Europa y Japón' },
+  { value: 'Del campo al IT', text: 'sensores, PLCs y buses de campo abajo. Contenedores, bases de datos y análisis de imagen arriba' },
 ];
 
 const projectsIntro =

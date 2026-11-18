@@ -130,7 +130,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: 21px; line-height
 .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* Facts */
-.facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 24px 0 8px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 24px 0 8px; }
 .fact { padding: 22px 20px; border-left: 1px solid var(--line); }
 .fact:first-child { border-left: 0; padding-left: 0; }
 .fact b { display: block; font-family: var(--display); font-size: 30px; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -175,10 +175,6 @@ footer em { color: var(--ink); }
 
 @media (max-width: 900px) {
   .contact { grid-template-columns: 1fr; }
-  .facts { grid-template-columns: repeat(2, 1fr); }
-  .fact:nth-child(3) { border-left: 0; padding-left: 0; }
-  .fact { border-top: 1px solid var(--line); }
-  .fact:nth-child(-n+2) { border-top: 0; }
   .how { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -517,9 +513,8 @@ footer em { color: var(--ink); }
     </section>
     <div class="facts">
       <div class="fact"><b>+10 años</b><span>entre planta y oficina técnica, de la puesta en marcha al software</span></div>
-      <div class="fact"><b>5 países</b><span>con puestas en marcha (EEUU, Inglaterra, Francia, Japón y Hungría)</span></div>
-      <div class="fact"><b>4 sistemas</b><span>funcionando en producción con robots de inspección y datos de planta</span></div>
-      <div class="fact"><b>PLC → IA</b><span>Profinet, OPC UA, Modbus y MQTT por abajo, Python, visión e IA por arriba</span></div>
+      <div class="fact"><b>Medio mundo</b><span>poniendo en marcha PLCs y sistemas IoT en Estados Unidos, Europa y Japón</span></div>
+      <div class="fact"><b>Del campo al IT</b><span>sensores, PLCs y buses de campo abajo. Contenedores, bases de datos y análisis de imagen arriba</span></div>
     </div>
     <section id="proyectos">
       <div class="sec-head">

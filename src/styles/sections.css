@@ -28,7 +28,7 @@ h3 { font-family: var(--display); font-weight: 700; font-size: 21px; line-height
 .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* Facts */
-.facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 24px 0 8px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 24px 0 8px; }
 .fact { padding: 22px 20px; border-left: 1px solid var(--line); }
 .fact:first-child { border-left: 0; padding-left: 0; }
 .fact b { display: block; font-family: var(--display); font-size: 30px; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -73,10 +73,6 @@ footer em { color: var(--ink); }
 
 @media (max-width: 900px) {
   .contact { grid-template-columns: 1fr; }
-  .facts { grid-template-columns: repeat(2, 1fr); }
-  .fact:nth-child(3) { border-left: 0; padding-left: 0; }
-  .fact { border-top: 1px solid var(--line); }
-  .fact:nth-child(-n+2) { border-top: 0; }
   .how { grid-template-columns: repeat(2, 1fr); }
 }
 
