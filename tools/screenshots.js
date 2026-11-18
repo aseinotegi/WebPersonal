@@ -21,6 +21,7 @@ const executablePath = process.env.CHROME_PATH || '/usr/bin/google-chrome';
 
 const viewports = [
   { name: 'desktop', width: 1366, height: 800, isMobile: false },
+  { name: 'laptop', width: 1366, height: 620, isMobile: false },
   { name: 'mobile', width: 390, height: 800, isMobile: true },
 ];
 

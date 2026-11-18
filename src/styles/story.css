@@ -19,8 +19,15 @@
 }
 
 /* Captions: one per scene, only the current one visible. */
-.caps { position: absolute; z-index: 2; left: max(24px, calc((100vw - 1120px) / 2 + 24px)); top: 50%; transform: translateY(-44%); width: min(420px, 40vw); min-height: 300px; }
-.cap { position: absolute; inset: 0 auto auto 0; opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
+/* The caption column runs from under the header to the bottom of the screen,
+   and each caption is centred in it, level with the piece the camera frames.
+   Two flexible spacers centre it and shrink to nothing if it is taller than
+   the screen, so the title is never cut. */
+.caps { position: absolute; z-index: 2; left: max(24px, calc((100vw - 1120px) / 2 + 24px)); top: 64px; bottom: 16px; width: min(420px, 40vw); }
+.cap { position: absolute; inset: 0 auto 0 0; width: 100%; display: flex; flex-direction: column; opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
+.cap::before,
+.cap::after { content: ""; flex: 1 1 0; }
+.cap .repo { align-self: flex-start; }
 .cap.on { opacity: 1; transform: none; pointer-events: auto; }
 .cap .lvl { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; margin: 0 0 14px; }
 .cap h1,
@@ -54,8 +61,10 @@
 /* On phones the caption sits at the bottom and the drawing above it. */
 @media (max-width: 820px) {
   .stage::before { background: linear-gradient(0deg, var(--bg) 0, rgba(6, 13, 27, .94) 36%, rgba(6, 13, 27, 0) 60%); }
-  .caps { left: 18px; right: 18px; width: auto; top: auto; bottom: 64px; transform: none; min-height: 0; }
-  .cap { inset: auto 0 0 0; }
+  .caps { left: 18px; right: 18px; width: auto; top: auto; bottom: 64px; }
+  .cap { inset: auto 0 0 0; display: block; }
+  .cap::before,
+  .cap::after { content: none; }
   .cap .txt { font-size: 16px; margin-bottom: 12px; }
   .cap .repo { font-size: 13px; min-height: 44px; }
   .cap h2 { margin-bottom: 10px; }
@@ -65,6 +74,16 @@
   .steps { right: 12px; top: 96px; transform: none; gap: 9px; }
   .steps button { width: 10px; height: 10px; }
   .skip { left: 18px; right: auto; bottom: 16px; }
+}
+
+/* Laptops with short screens: tighter type so the whole caption fits. */
+@media (min-width: 821px) and (max-height: 760px) {
+  .cap .lvl { margin-bottom: 8px; }
+  .cap h1 { font-size: clamp(32px, 3.8vw, 46px); }
+  .cap h2 { font-size: clamp(26px, 2.8vw, 34px); margin-bottom: 10px; }
+  .cap .txt { font-size: 16px; margin-bottom: 14px; }
+  .mine p { font-size: 15px; margin-bottom: 10px; }
+  .mine .chips { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
