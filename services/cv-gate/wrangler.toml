@@ -1,0 +1,15 @@
+# cv.andersein.com — see README.md in this folder.
+# Secrets (TURNSTILE_SECRET, SIGNING_KEY, CV_FILE_ES, CV_FILE_EN, NTFY_TOPIC…)
+# are set with `wrangler secret put <NAME>` or in the dashboard, never here.
+name = "cv-gate"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+routes = [{ pattern = "cv.andersein.com", custom_domain = true }]
+
+[vars]
+TURNSTILE_SITEKEY = "0x4AAAAAAGIbcPkmHwmx1ZSc"
+CONTACT_EMAIL = "aseinotegi@gmail.com"
+
+[observability]
+enabled = true
