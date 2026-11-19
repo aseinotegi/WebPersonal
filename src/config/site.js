@@ -47,7 +47,7 @@ const person = {
   location: 'Donostia-San Sebastián',
   linkedin: { url: 'https://www.linkedin.com/in/ander-sein-a24097195/', handle: 'ander-sein-a24097195' },
   github: { url: 'https://github.com/aseinotegi', handle: 'aseinotegi' },
-  cv: 'https://drive.google.com/file/d/13Tf7QVlCJIUVRZBiALA2ZDCoR75RUgZL/view',
+  cv: 'https://cv.andersein.com/', // services/cv-gate
 };
 
 module.exports = { palette, fonts, preloadFonts, site, person };

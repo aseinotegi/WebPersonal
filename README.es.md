@@ -109,7 +109,8 @@ flowchart LR
 │   ├── build.js            ← escribe los SVG en build/brand/
 │   └── exports/            ← PNG finales (tarjeta, banner de LinkedIn, fondo 16:9, cabecera del CV)
 ├── tools/screenshots.js    ← cada escena en escritorio y móvil, para revisar
-└── tools/og-image.js       ← og.png, la imagen que sale al compartir el enlace
+├── tools/og-image.js       ← og.png, la imagen que sale al compartir el enlace
+└── services/cv-gate/       ← Worker de Cloudflare en cv.andersein.com (el CV, tras Turnstile)
 ```
 
 ### Cómo se relacionan las piezas

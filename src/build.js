@@ -35,7 +35,7 @@ const OUTPUT = path.join(SRC, '..', 'index.html');
 // Order matters: later files may refine earlier ones.
 const STYLES = ['base.css', 'header.css', 'sections.css', 'story.css', 'plant.css'];
 // Plain scripts sharing one scope; story.js uses the helpers defined before it.
-const SCRIPTS = ['geometry.js', 'camera.js', 'story.js', 'dock.js'];
+const SCRIPTS = ['geometry.js', 'camera.js', 'story.js', 'dock.js', 'cv-link.js'];
 
 const read = (...parts) => fs.readFileSync(path.join(SRC, ...parts), 'utf8');
 

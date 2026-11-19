@@ -109,7 +109,8 @@ flowchart LR
 │   ├── build.js            ← writes the SVGs to build/brand/
 │   └── exports/            ← final PNGs (card, LinkedIn banner, 16:9 background, CV header)
 ├── tools/screenshots.js    ← every scene on desktop and phone, for review
-└── tools/og-image.js       ← og.png, the image shown when the link is shared
+├── tools/og-image.js       ← og.png, the image shown when the link is shared
+└── services/cv-gate/       ← Cloudflare Worker behind cv.andersein.com (the CV, behind Turnstile)
 ```
 
 ### How the pieces relate

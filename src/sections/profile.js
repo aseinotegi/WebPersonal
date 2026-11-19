@@ -16,7 +16,7 @@ function renderAbout(about) {
         <p class="lead">${about.lead}</p>
         <div class="ctas">
           <a class="btn primary" href="#proyectos">Ver proyectos</a>
-          <a class="btn ghost" href="${person.cv}">Ver CV</a>
+          <a class="btn ghost" href="${person.cv}" target="_blank" rel="noopener" data-cv>Ver CV</a>
           <a class="btn ghost" href="${person.linkedin.url}">LinkedIn</a>
         </div>
       </div>

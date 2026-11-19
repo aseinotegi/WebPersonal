@@ -528,7 +528,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
         <p class="lead">Soy de Donostia y llevo más de diez años en la industria. Empecé a pie de máquina, programando PLCs y poniendo en marcha líneas fuera de casa, y poco a poco me fui pasando al dato. Hoy me dedico a que la información de planta llegue a quien la necesita, venga de un PLC, de una cámara o de un robot.</p>
         <div class="ctas">
           <a class="btn primary" href="#proyectos">Ver proyectos</a>
-          <a class="btn ghost" href="https://drive.google.com/file/d/13Tf7QVlCJIUVRZBiALA2ZDCoR75RUgZL/view">Ver CV</a>
+          <a class="btn ghost" href="https://cv.andersein.com/" target="_blank" rel="noopener" data-cv>Ver CV</a>
           <a class="btn ghost" href="https://www.linkedin.com/in/ander-sein-a24097195/">LinkedIn</a>
         </div>
       </div>
@@ -997,6 +997,27 @@ function startDock() {
 }
 
 startDock();
+
+// "Ver CV" goes through cv.andersein.com (services/cv-gate), which tells me when
+// someone opens the CV. This adds where the visitor came from (LinkedIn, Google…),
+// just the host, so the notification says it.
+
+function tagCvLinks() {
+  let from = '';
+  try {
+    const ref = document.referrer ? new URL(document.referrer).hostname : '';
+    if (ref && ref !== location.hostname) from = ref;
+  } catch (error) {
+    from = '';
+  }
+  for (const link of document.querySelectorAll('a[data-cv]')) {
+    const url = new URL(link.href);
+    if (from) url.searchParams.set('from', from);
+    link.href = url.toString();
+  }
+}
+
+tagCvLinks();
 
 })();
 </script>
