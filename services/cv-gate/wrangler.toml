@@ -13,7 +13,7 @@ CONTACT_EMAIL = "aseinotegi@gmail.com"
 
 [[kv_namespaces]]
 binding = "CV_STORE"
-id = "<cv-files namespace id>"
+id = "d33ad6e97c764f1b97f0f1aee94f470c" # cv-files
 
 [observability]
 enabled = true
