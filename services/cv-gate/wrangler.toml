@@ -1,4 +1,4 @@
-# cv.andersein.com — see README.md in this folder.
+# cv.andersein.com, see README.md in this folder.
 # Secrets (TURNSTILE_SECRET, SIGNING_KEY, ADMIN_TOKEN, NTFY_TOPIC…)
 # are set with `wrangler secret put <NAME>` or in the dashboard, never here.
 name = "cv-gate"

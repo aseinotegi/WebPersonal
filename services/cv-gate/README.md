@@ -1,16 +1,15 @@
 # cv-gate
 
-Small Cloudflare Worker behind **cv.andersein.com**. The "Ver CV" button of the site points here.
+Cloudflare Worker behind **cv.andersein.com**. The "Ver CV" button of the site points here.
 
-1. `GET /` shows a bridge page with Cloudflare Turnstile (usually invisible) where the visitor picks Spanish or English.
-2. `POST /cv` checks the token with Turnstile, sends me a push notification (ntfy or Telegram: city, country, device and where the visitor came from) and redirects to a signed link that lasts 10 minutes.
-3. `GET /cv/<lang>/<exp>/<sig>` serves the PDF only if the HMAC signature and the expiry are valid.
+- `GET /` page with Turnstile where you pick Spanish or English.
+- `POST /cv` checks the Turnstile token, sends me a push notification with [ntfy](https://ntfy.sh) (city, country, device and where the visitor came from) and redirects to a signed link that lasts 10 minutes.
+- `GET /cv/<lang>/<exp>/<sig>` the PDF, only with a valid HMAC signature.
+- `/admin` page to upload a new version of the CV.
 
-The PDFs are not in this repository: they live in a Workers KV namespace (`cv-es`, `cv-en`). To replace them, open `/admin`, enter the `ADMIN_TOKEN` and pick the new files.
-
-No dependencies, one file. Settings are listed at the top of `worker.js`.
+The PDFs are not in the repo, they live in Workers KV (`cv-es`, `cv-en`).
 
 ```bash
-npx wrangler deploy                       # from this folder
-npx wrangler secret put TURNSTILE_SECRET  # and SIGNING_KEY, ADMIN_TOKEN, NTFY_TOPIC…
+npx wrangler deploy
+npx wrangler secret put TURNSTILE_SECRET   # also SIGNING_KEY, ADMIN_TOKEN, NTFY_TOPIC
 ```
