@@ -96,7 +96,7 @@ function buildScript(config) {
 function renderAnalytics(token) {
   if (!token) return '';
   const beacon = JSON.stringify({ token });
-  return `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${beacon}'></script>`;
+  return `<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${beacon}'></script>`;
 }
 
 function build() {
