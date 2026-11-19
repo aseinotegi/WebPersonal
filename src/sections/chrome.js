@@ -38,11 +38,11 @@ function renderHeader() {
 }
 
 /** Footer: the robot goes back to its charging station, then the credits. */
-function renderFooter() {
+function renderFooter({ projects }) {
   return `<footer class="wrap">
   <div class="dock" id="dock">
     ${drawDock()}
-    <p class="made">Hecha desde cero, trazo a trazo</p>
+    <p class="made"><span class="tick" aria-hidden="true">✓</span> Ronda completada · ${projects}/${projects} proyectos</p>
   </div>
   <p class="copy">© ${new Date().getFullYear()} ${person.name}</p>
 </footer>`;
