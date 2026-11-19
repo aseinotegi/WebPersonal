@@ -39,6 +39,8 @@ const site = {
   description:
     'Ander Sein, ingeniero de automatización e IIoT en Donostia. Sigue la ronda de un robot de inspección y verás en qué trabajo.',
   locale: 'es_ES',
+  // Cloudflare Web Analytics (no cookies). Empty = no analytics.
+  analyticsToken: '',
 };
 
 const person = {

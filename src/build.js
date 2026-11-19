@@ -93,6 +93,12 @@ function buildScript(config) {
   return `(() => {\nconst CONFIG = ${JSON.stringify(config)};\n\n${code}\n})();`;
 }
 
+function renderAnalytics(token) {
+  if (!token) return '';
+  const beacon = JSON.stringify({ token });
+  return `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${beacon}'></script>`;
+}
+
 function build() {
   const plant = drawPlant();
 
@@ -115,6 +121,7 @@ function build() {
     contact: renderContact(profile.contact),
     footer: renderFooter({ projects: scenes.filter((scene) => scene.project).length }),
     script: buildScript(buildClientConfig(plant.layout)),
+    analytics: renderAnalytics(site.analyticsToken),
   });
 
   fs.writeFileSync(OUTPUT, html);
