@@ -18,7 +18,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { palette, site } = require('./config/site');
+const { palette, site, person } = require('./config/site');
 const { scenes } = require('./content/scenes');
 const profile = require('./content/profile');
 const { drawPlant } = require('./plant');
@@ -93,10 +93,41 @@ function buildScript(config) {
   return `(() => {\nconst CONFIG = ${JSON.stringify(config)};\n\n${code}\n})();`;
 }
 
+// Who the page is about, for Google (schema.org Person).
+function renderJsonLd() {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: person.name,
+    url: site.url,
+    jobTitle: person.jobTitle,
+    image: `${site.url}og.png`,
+    address: { '@type': 'PostalAddress', addressLocality: person.location, addressCountry: 'ES' },
+    sameAs: [person.linkedin.url, person.github.url],
+    knowsAbout: person.knowsAbout,
+  };
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
 function renderAnalytics(token) {
   if (!token) return '';
   const beacon = JSON.stringify({ token });
   return `<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${beacon}'></script>`;
+}
+
+// robots.txt and sitemap.xml next to index.html, so Google finds the page.
+function writeCrawlerFiles() {
+  const root = path.dirname(OUTPUT);
+  const today = new Date().toISOString().slice(0, 10);
+  fs.writeFileSync(path.join(root, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.url}sitemap.xml\n`);
+  fs.writeFileSync(
+    path.join(root, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${site.url}</loc><lastmod>${today}</lastmod></url>
+</urlset>
+`,
+  );
 }
 
 function build() {
@@ -122,9 +153,11 @@ function build() {
     footer: renderFooter({ projects: scenes.filter((scene) => scene.project).length }),
     script: buildScript(buildClientConfig(plant.layout)),
     analytics: renderAnalytics(site.analyticsToken),
+    jsonLd: renderJsonLd(),
   });
 
   fs.writeFileSync(OUTPUT, html);
+  writeCrawlerFiles();
   console.log(`index.html written (${(html.length / 1024).toFixed(0)} KB)`);
 }
 

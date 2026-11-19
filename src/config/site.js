@@ -34,10 +34,10 @@ const preloadFonts = ['montserrat-latin-800-normal', 'inter-latin-400-normal'];
 const site = {
   url: 'https://andersein.com/',
   language: 'es',
-  title: 'Ander Sein · Del sensor a la decisión',
+  title: 'Ander Sein · Ingeniero de IIoT y automatización industrial',
   shareTitle: 'Ander Sein · Automatización e IIoT',
   description:
-    'Ander Sein, ingeniero de automatización e IIoT en Donostia. Sigue la ronda de un robot de inspección y verás en qué trabajo.',
+    'Ander Sein, ingeniero de IIoT y automatización industrial en Donostia. PLCs, Unified Namespace, visión artificial y robots de inspección, contados con la ronda de un robot.',
   locale: 'es_ES',
   // Cloudflare Web Analytics (no cookies). Empty = no analytics.
   analyticsToken: '438dc2d4fcb6441bb01c3f038fd8be1e',
@@ -50,6 +50,9 @@ const person = {
   linkedin: { url: 'https://www.linkedin.com/in/ander-sein-a24097195/', handle: 'ander-sein-a24097195' },
   github: { url: 'https://github.com/aseinotegi', handle: 'aseinotegi' },
   cv: 'https://cv.andersein.com/', // services/cv-gate
+  jobTitle: 'Ingeniero de IIoT y automatización industrial',
+  // for search engines (schema.org Person)
+  knowsAbout: ['IIoT', 'Automatización industrial', 'PLC', 'Siemens S7', 'OPC UA', 'MQTT', 'Unified Namespace', 'Visión artificial', 'Robots de inspección', 'Docker', 'Python'],
 };
 
 module.exports = { palette, fonts, preloadFonts, site, person };
