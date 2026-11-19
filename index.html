@@ -648,16 +648,51 @@ function smoothPath(points) {
   return d;
 }
 
-/** Distance along `path` of the point closest to `target`, searching from `from` onwards. */
+/**
+ * Distance along `path` of the point closest to `target`, searching from `from` onwards.
+ *
+ * getPointAtLength is slow on long paths (it was taking seconds at page load), so the
+ * path is sampled once every 40 units and then refined around the best sample.
+ */
+const COARSE = 40;
+const samplesByPath = new WeakMap();
+
+function pathSamples(path) {
+  if (!samplesByPath.has(path)) {
+    const total = path.getTotalLength();
+    const samples = [];
+    for (let l = 0; l <= total; l += COARSE) {
+      const q = path.getPointAtLength(l);
+      samples.push({ l, x: q.x, y: q.y });
+    }
+    samplesByPath.set(path, { total, samples });
+  }
+  return samplesByPath.get(path);
+}
+
 function lengthAtPoint(path, target, from = 0, step = 3) {
-  const total = path.getTotalLength();
-  let best = from;
+  const { total, samples } = pathSamples(path);
+  const distance = (x, y) => (x - target[0]) ** 2 + (y - target[1]) ** 2;
+
+  let rough = from;
+  let roughDistance = Infinity;
+  for (const s of samples) {
+    if (s.l < from) continue;
+    const d = distance(s.x, s.y);
+    if (d < roughDistance) {
+      roughDistance = d;
+      rough = s.l;
+    }
+  }
+
+  let best = rough;
   let bestDistance = Infinity;
-  for (let l = from; l <= total; l += step) {
+  const end = Math.min(total, rough + COARSE);
+  for (let l = Math.max(from, rough - COARSE); l <= end; l += step) {
     const q = path.getPointAtLength(l);
-    const distance = (q.x - target[0]) ** 2 + (q.y - target[1]) ** 2;
-    if (distance < bestDistance) {
-      bestDistance = distance;
+    const d = distance(q.x, q.y);
+    if (d < bestDistance) {
+      bestDistance = d;
       best = l;
     }
   }
