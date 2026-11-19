@@ -1,37 +1,47 @@
 /**
  * cv.andersein.com — serves my CV to people, not to bots, and lets me know.
  *
- *   GET  /                      bridge page: Cloudflare Turnstile checks the visitor
+ *   GET  /                      bridge page: Turnstile checks the visitor, who
+ *                               picks Spanish or English
  *   POST /cv                    verifies the token, sends me a notification and
  *                               redirects to a signed link that lasts 10 minutes
  *   GET  /cv/<lang>/<exp>/<sig> the PDF, only with a valid signature
+ *   GET  /admin                 private upload page (needs ADMIN_TOKEN)
+ *   PUT  /admin/cv/<lang>       replaces a PDF in KV (Authorization: Bearer ADMIN_TOKEN)
  *
- * The PDF is not in any public repository. The Worker downloads it from a Drive
- * file whose id is a secret and keeps it in the edge cache for an hour.
+ * The PDFs are not in any public repository: they live in a KV namespace.
  *
- * Settings (Worker variables and secrets):
+ * Bindings and settings:
+ *   CV_STORE            KV namespace with the PDFs (keys cv-es, cv-en)
  *   TURNSTILE_SITEKEY   public site key of the Turnstile widget
  *   TURNSTILE_SECRET    secret key of the widget                      (secret)
  *   SIGNING_KEY         random string used to sign the PDF links       (secret)
- *   CV_FILE_ES          Drive file id of the Spanish CV                (secret)
- *   CV_FILE_EN          Drive file id of the English CV, optional      (secret)
+ *   ADMIN_TOKEN         random string for the upload page              (secret)
  *   NTFY_TOPIC          ntfy.sh topic for push notifications, optional (secret)
  *   TELEGRAM_TOKEN, TELEGRAM_CHAT   Telegram bot instead of / besides ntfy, optional
  *   CONTACT_EMAIL       shown if the check fails
  */
 
 const LINK_TTL_SECONDS = 600;
-const PDF_CACHE_SECONDS = 3600;
+const MAX_PDF_BYTES = 10 * 1024 * 1024;
 const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const LANGS = {
+  es: { label: 'Español', file: 'Ander-Sein-CV.pdf' },
+  en: { label: 'English', file: 'Ander-Sein-CV-EN.pdf' },
+};
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    const { pathname } = url;
+    const method = request.method;
     try {
-      if (url.pathname === '/robots.txt') return text('User-agent: *\nDisallow: /\n');
-      if (url.pathname === '/' && request.method === 'GET') return bridgePage(env, url);
-      if (url.pathname === '/cv' && request.method === 'POST') return await checkVisitor(request, env, ctx, url);
-      if (url.pathname.startsWith('/cv/') && request.method === 'GET') return await servePdf(url, env, ctx);
+      if (pathname === '/robots.txt') return text('User-agent: *\nDisallow: /\n');
+      if (pathname === '/' && method === 'GET') return bridgePage(env, url);
+      if (pathname === '/cv' && method === 'POST') return await checkVisitor(request, env, ctx, url);
+      if (pathname.startsWith('/cv/') && method === 'GET') return await servePdf(url, env);
+      if (pathname === '/admin' && method === 'GET') return adminPage();
+      if (pathname.startsWith('/admin/cv/') && method === 'PUT') return await uploadPdf(request, env, pathname);
       return text('No encontrado', 404);
     } catch (error) {
       console.error(error);
@@ -43,9 +53,14 @@ export default {
 // -- 1. bridge page -----------------------------------------------------------
 
 function bridgePage(env, url, failed = false) {
-  const lang = pickLang(url.searchParams.get('lang'), env);
+  const preset = LANGS[url.searchParams.get('lang')] ? url.searchParams.get('lang') : '';
   const from = (url.searchParams.get('from') || '').slice(0, 80);
   const contact = env.CONTACT_EMAIL || '';
+  const mail = contact ? `<a href="mailto:${contact}">${contact}</a>` : '';
+  const buttons = Object.entries(LANGS)
+    .map(([code, { label }]) => `<button type="submit" name="lang" value="${code}" disabled>${label}</button>`)
+    .join('');
+
   const html = `<!doctype html>
 <html lang="es">
 <head>
@@ -61,37 +76,51 @@ function bridgePage(env, url, failed = false) {
   main { padding: 32px 24px; max-width: 420px; text-align: center; }
   .mono { font: 600 12px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .14em; color: #22D3EE; }
   h1 { font-size: 26px; margin: 12px 0 8px; }
-  p { color: #A3B3C9; margin: 0 0 20px; }
-  .cf-turnstile { display: flex; justify-content: center; min-height: 0; }
+  p { color: #A3B3C9; margin: 0 0 22px; }
   a { color: #22D3EE; }
-  .dots::after { content: ''; animation: dots 1.2s steps(4) infinite; }
-  @keyframes dots { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+  .langs { display: flex; gap: 12px; justify-content: center; margin-bottom: 18px; }
+  button { font: 600 15px/1 Inter, system-ui, sans-serif; padding: 13px 22px; border-radius: 10px; cursor: pointer;
+           border: 1px solid #22D3EE; background: transparent; color: #E6EDF7; transition: background .2s, opacity .2s; }
+  button:hover:not(:disabled) { background: rgba(34, 211, 238, .12); }
+  button:disabled { opacity: .35; cursor: wait; }
+  .cf-turnstile { display: flex; justify-content: center; }
+  .note { font-size: 13px; min-height: 20px; margin: 0; }
 </style>
 </head>
 <body>
 <main>
   <div class="mono">ANDER SEIN · CV</div>
-  <h1 id="title">${failed ? 'No he podido comprobarlo' : 'Un segundo'}</h1>
-  <p id="msg">${
+  <h1 id="title">${failed ? 'No he podido comprobarlo' : 'Mi CV'}</h1>
+  ${
     failed
-      ? `Recarga la página para intentarlo otra vez${contact ? `, o escríbeme a <a href="mailto:${contact}">${contact}</a> y te lo mando` : ''}.`
-      : 'Compruebo que no eres un robot y te abro el CV<span class="dots"></span>'
-  }</p>
+      ? `<p>Recarga la página para intentarlo otra vez${mail ? `, o escríbeme a ${mail} y te lo mando` : ''}.</p>`
+      : `<p>¿En qué idioma lo quieres?</p>
   <form id="go" method="POST" action="/cv">
-    <input type="hidden" name="lang" value="${lang}">
     <input type="hidden" name="from" value="${escapeHtml(from)}">
     <input type="hidden" name="token" id="token">
-    ${failed ? '' : `<div class="cf-turnstile" data-sitekey="${env.TURNSTILE_SITEKEY}" data-callback="onPass"
-      data-error-callback="onFail" data-theme="dark" data-language="es" data-appearance="interaction-only"></div>`}
-  </form>
-  <noscript><p>Para abrir el CV necesito JavaScript${contact ? `, o escríbeme a <a href="mailto:${contact}">${contact}</a>` : ''}.</p></noscript>
+    <div class="langs">${buttons}</div>
+    <div class="cf-turnstile" data-sitekey="${env.TURNSTILE_SITEKEY}" data-callback="onPass" data-error-callback="onFail"
+      data-expired-callback="onExpired" data-theme="dark" data-language="es" data-appearance="interaction-only"></div>
+    <p class="note" id="note">Compruebo que no eres un robot…</p>
+  </form>`
+  }
+  <noscript><p>Para abrir el CV necesito JavaScript${mail ? `, o escríbeme a ${mail}` : ''}.</p></noscript>
 </main>
 <script>
-  function onPass(token) { document.getElementById('token').value = token; document.getElementById('go').submit(); }
-  function onFail() {
-    document.getElementById('title').textContent = 'No he podido comprobarlo';
-    document.getElementById('msg').textContent = 'Recarga la página para intentarlo otra vez.';
+  const preset = ${JSON.stringify(preset)};
+  const buttons = () => document.querySelectorAll('.langs button');
+  function onPass(token) {
+    document.getElementById('token').value = token;
+    document.getElementById('note').textContent = '';
+    buttons().forEach((b) => (b.disabled = false));
+    if (preset) document.querySelector('.langs button[value="' + preset + '"]').click();
   }
+  function onExpired() { buttons().forEach((b) => (b.disabled = true)); }
+  function onFail() {
+    document.getElementById('note').textContent = 'No he podido comprobarlo. Recarga la página para intentarlo otra vez.';
+  }
+  // Coming back with the browser's back button: the token was already used.
+  addEventListener('pageshow', (event) => { if (event.persisted) location.reload(); });
 </script>
 </body>
 </html>`;
@@ -105,7 +134,7 @@ function bridgePage(env, url, failed = false) {
 
 async function checkVisitor(request, env, ctx, url) {
   const form = await request.formData();
-  const lang = pickLang(form.get('lang'), env);
+  const lang = LANGS[form.get('lang')] ? String(form.get('lang')) : 'es';
   const from = String(form.get('from') || '').slice(0, 80);
   const ip = request.headers.get('cf-connecting-ip') || '';
 
@@ -168,61 +197,85 @@ async function notify(env, { title, body }) {
 
 // -- 3. the PDF ---------------------------------------------------------------
 
-async function servePdf(url, env, ctx) {
+async function servePdf(url, env) {
   const [, , lang, exp, sig] = url.pathname.split('/');
   const now = Math.floor(Date.now() / 1000);
   const valid =
-    fileFor(lang, env) && Number(exp) > now && Number(exp) <= now + LINK_TTL_SECONDS && (await verify(env.SIGNING_KEY, `${lang}.${exp}`, sig));
+    LANGS[lang] && Number(exp) > now && Number(exp) <= now + LINK_TTL_SECONDS && (await verify(env.SIGNING_KEY, `${lang}.${exp}`, sig));
   if (!valid) {
     // Expired or tampered link: back to the bridge page for a new one.
-    return new Response(null, { status: 303, headers: { location: `/?lang=${pickLang(lang, env)}` } });
+    return new Response(null, { status: 303, headers: { location: '/' } });
   }
 
-  const pdf = await loadPdf(lang, env, ctx);
+  const pdf = await env.CV_STORE.get(`cv-${lang}`, { type: 'arrayBuffer', cacheTtl: 3600 });
   if (!pdf) return text('No he podido cargar el CV ahora mismo. Inténtalo en un rato.', 502);
 
-  const name = lang === 'en' ? 'Ander-Sein-CV-EN.pdf' : 'Ander-Sein-CV.pdf';
   return new Response(pdf, {
     headers: {
       'content-type': 'application/pdf',
-      'content-disposition': `inline; filename="${name}"`,
+      'content-disposition': `inline; filename="${LANGS[lang].file}"`,
       'cache-control': 'private, no-store',
       'x-robots-tag': 'noindex, nofollow',
     },
   });
 }
 
-async function loadPdf(lang, env, ctx) {
-  const cache = caches.default;
-  const key = new Request(`https://cv-cache.internal/${lang}/${fileFor(lang, env)}`);
-  const hit = await cache.match(key);
-  if (hit) return hit.arrayBuffer();
+// -- 4. upload (only me) ------------------------------------------------------
 
-  const id = encodeURIComponent(fileFor(lang, env));
-  const res = await fetch(`https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t`);
-  const bytes = res.ok ? await res.arrayBuffer() : null;
-  // Drive answers with an HTML page if the file is not shared or does not exist.
-  if (!bytes || !isPdf(bytes)) {
-    console.log('drive download failed', res.status, res.headers.get('content-type'));
-    return null;
-  }
-  ctx.waitUntil(
-    cache.put(key, new Response(bytes, { headers: { 'content-type': 'application/pdf', 'cache-control': `max-age=${PDF_CACHE_SECONDS}` } })),
-  );
-  return bytes;
+async function uploadPdf(request, env, pathname) {
+  const lang = pathname.split('/')[3];
+  const auth = request.headers.get('authorization') || '';
+  if (!env.ADMIN_TOKEN || !(await sameText(auth, `Bearer ${env.ADMIN_TOKEN}`))) return json({ ok: false, error: 'unauthorized' }, 401);
+  if (!LANGS[lang]) return json({ ok: false, error: 'unknown language' }, 400);
+
+  const bytes = await request.arrayBuffer();
+  if (bytes.byteLength > MAX_PDF_BYTES) return json({ ok: false, error: 'too large' }, 413);
+  if (!isPdf(bytes)) return json({ ok: false, error: 'not a PDF' }, 415);
+
+  await env.CV_STORE.put(`cv-${lang}`, bytes, { metadata: { bytes: bytes.byteLength, uploaded: new Date().toISOString() } });
+  return json({ ok: true, lang, bytes: bytes.byteLength });
 }
 
-const isPdf = (bytes) => new TextDecoder().decode(bytes.slice(0, 5)) === '%PDF-';
+function adminPage() {
+  const rows = Object.entries(LANGS)
+    .map(([code, { label }]) => `<label>${label} <input type="file" accept="application/pdf" data-lang="${code}"></label>`)
+    .join('');
+  const html = `<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Subir CV</title>
+<style>
+  body { font: 15px/1.6 system-ui, sans-serif; background: #060D1B; color: #E6EDF7; max-width: 460px; margin: 60px auto; padding: 0 20px; }
+  label { display: block; margin: 14px 0; } input { display: block; margin-top: 6px; color: #A3B3C9; width: 100%; }
+  button { padding: 10px 18px; border-radius: 8px; border: 1px solid #22D3EE; background: transparent; color: #E6EDF7; cursor: pointer; }
+  pre { color: #22D3EE; white-space: pre-wrap; }
+</style></head>
+<body>
+<h1>Subir CV</h1>
+<label>Clave <input type="password" id="token" autocomplete="off"></label>
+${rows}
+<button id="send">Subir</button>
+<pre id="out"></pre>
+<script>
+  document.getElementById('send').onclick = async () => {
+    const out = document.getElementById('out');
+    const token = document.getElementById('token').value;
+    out.textContent = '';
+    for (const input of document.querySelectorAll('input[type=file]')) {
+      const file = input.files[0];
+      if (!file) continue;
+      const res = await fetch('/admin/cv/' + input.dataset.lang, { method: 'PUT', headers: { authorization: 'Bearer ' + token }, body: file });
+      out.textContent += input.dataset.lang + ': ' + res.status + ' ' + (await res.text()) + '\\n';
+    }
+    if (!out.textContent) out.textContent = 'Elige al menos un PDF.';
+  };
+</script>
+</body></html>`;
+  return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' } });
+}
 
 // -- helpers --------------------------------------------------------------------
 
-function fileFor(lang, env) {
-  return lang === 'en' ? env.CV_FILE_EN : lang === 'es' ? env.CV_FILE_ES : undefined;
-}
-
-function pickLang(value, env) {
-  return value === 'en' && env.CV_FILE_EN ? 'en' : 'es';
-}
+const isPdf = (bytes) => new TextDecoder().decode(bytes.slice(0, 5)) === '%PDF-';
 
 async function hmacKey(secret) {
   return crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
@@ -242,6 +295,17 @@ async function verify(secret, message, signature) {
   }
 }
 
+// Constant-time comparison through HMAC, so the admin token cannot be guessed byte by byte.
+async function sameText(a, b) {
+  const key = await hmacKey('compare');
+  const [x, y] = await Promise.all([a, b].map((v) => crypto.subtle.sign('HMAC', key, new TextEncoder().encode(v))));
+  const ua = new Uint8Array(x);
+  const ub = new Uint8Array(y);
+  let diff = 0;
+  for (let i = 0; i < ua.length; i++) diff |= ua[i] ^ ub[i];
+  return diff === 0;
+}
+
 function base64url(bytes) {
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
@@ -257,4 +321,8 @@ function escapeHtml(value) {
 
 function text(body, status = 200) {
   return new Response(body, { status, headers: { 'content-type': 'text/plain; charset=utf-8' } });
+}
+
+function json(body, status = 200) {
+  return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 }
