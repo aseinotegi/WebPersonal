@@ -160,7 +160,10 @@ async function notify(env, { title, body }) {
     );
   }
   const results = await Promise.allSettled(jobs);
-  for (const r of results) if (r.status === 'rejected' || !r.value.ok) console.log('notification failed', r.reason || r.value.status);
+  for (const r of results) {
+    if (r.status === 'rejected') console.log('notification failed', String(r.reason));
+    else if (!r.value.ok) console.log('notification failed', r.value.status);
+  }
 }
 
 // -- 3. the PDF ---------------------------------------------------------------
