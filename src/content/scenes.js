@@ -13,7 +13,7 @@
  *     mine   that work, told in first person
  *     repo   kind 'code' (runs without hardware) or 'case' (written case study)
  *     live   the page of the live demo (demo.andersein.com) where it can be seen
- *            working: 'vision' opens #/vision, '' the plant map
+ *            working: 'vision' opens #/vision, 'planta' the plant map, '' the way in
  *
  * Scenes with a `project` are also listed in the projects index below the story.
  */
@@ -129,7 +129,7 @@ const scenes = [
     text: 'La XV-104 no tiene actuador, se cierra a mano. Para eso está el robot, que vuelve, agarra el volante con el brazo y la cierra.',
     project: {
       number: '07',
-      live: '',
+      live: 'planta',
       area: 'Robótica',
       indexTitle: 'Robots y PLCs, de la puesta en marcha a la inspección autónoma',
       mine: 'Antes de esto pasé años en puestas en marcha, programando robots y PLCs en Estados Unidos, Inglaterra, Francia, Japón y Hungría. Ahora llevo robots autónomos que hacen rondas de inspección en refinerías.',
