@@ -204,7 +204,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
 
 @media (max-width: 820px) {
   .pindex li { grid-template-columns: 40px 1fr; gap: 12px; }
-  .pindex .pi-links { grid-column: 2; gap: 18px; }
+  .pindex .pi-links { grid-column: 2; gap: 6px 18px; flex-wrap: wrap; white-space: normal; }
 }
 
 @media (max-width: 600px) {
@@ -266,6 +266,16 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
 .mine .chips { margin-bottom: 12px; }
 .mine .norepo { color: var(--soft); font-size: 14px; font-style: italic; margin: 0; }
 
+/* Live demo next to the code: the same plant, running. */
+.see { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0 0 6px; }
+.see .repo, .see .norepo { margin: 0; }
+.cap .live { display: inline-flex; align-items: center; gap: 9px; min-height: 42px; padding: 8px 14px; border: 1px solid var(--accent); border-radius: 10px; background: rgba(34, 211, 238, .08); color: var(--accent); font-weight: 700; font-size: 14px; }
+.cap .live:hover { background: rgba(34, 211, 238, .16); text-decoration: none; }
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(34, 211, 238, .6); animation: pulse 1.8s ease-out infinite; }
+@keyframes pulse { 70%, 100% { box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); } }
+.or-live { color: var(--soft); font-size: 14px; margin: 8px 0 0; }
+@media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+
 .hint { color: var(--accent); font-weight: 700; margin: 0; }
 .hint span { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
 @keyframes bob { 50% { transform: translateY(5px); } }
@@ -285,7 +295,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
   .cap::before,
   .cap::after { content: none; }
   .cap .txt { font-size: 16px; margin-bottom: 12px; }
-  .cap .repo { font-size: 13px; min-height: 44px; }
+  .cap .repo, .cap .live { font-size: 13px; min-height: 44px; }
   .cap h2 { margin-bottom: 10px; }
   .mine { padding-left: 12px; }
   .mine p { font-size: 15px; margin-bottom: 10px; }
@@ -394,7 +404,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
         <p class="lvl">Planta</p>
         <h1>Un dato. Todo el camino.</h1>
         <p class="txt">OT e IT llevan años sin entenderse. Baja despacio y mira cómo una sola lectura sale de la planta, cruza al otro lado y acaba en una decisión. Lo que voy rodeando en la pizarra lo he hecho yo.</p>
-        <p class="hint">Sigue al robot <span aria-hidden="true">↓</span></p>
+        <p class="hint">Sigue al robot <span aria-hidden="true">↓</span></p><p class="or-live">o mira la planta <a href="https://demo.andersein.com/" target="_blank" rel="noopener">funcionando en directo ↗</a></p>
         
       </article>
       <article class="cap" data-i="1">
@@ -412,7 +422,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">01</span>Captura de datos</p>
           <p>Llevo años montando esta capa en plantas, para robots, máquinas y sensores. Cada uno publica lo suyo y el que lo necesita se suscribe, sin tocar a los demás.</p>
           <ul class="chips"><li>MQTT</li><li>WebSocket</li><li>Python</li></ul>
-          <a class="repo" href="https://github.com/aseinotegi/mqtt-traceability-dashboard-showcase" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Leer el caso <span aria-hidden="true">↗</span></a>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/mqtt" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><a class="repo" href="https://github.com/aseinotegi/mqtt-traceability-dashboard-showcase" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Leer el caso <span aria-hidden="true">↗</span></a></div>
         </div>
         
         
@@ -425,7 +435,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">02</span>Edge</p>
           <p>Así lo despliego siempre. Si un servicio se cae se levanta solo y el resto ni se entera, y para actualizar uno no hay que parar nada. Son equipos que están 24 horas encendidos en planta.</p>
           <ul class="chips"><li>Docker</li><li>PC industrial</li><li>Python</li></ul>
-          <p class="norepo">Trabajo para clientes, sin repo público</p>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/arquitectura" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><p class="norepo">Trabajo para clientes, sin repo público</p></div>
         </div>
         
         
@@ -438,7 +448,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">03</span>Visión artificial</p>
           <p>En planta entrené un detector con fotos reales. En el repo lo hago de otra forma. El robot sabe en qué punto está y qué tiene delante, así que se lo pregunto a un modelo multimodal. Un caso nuevo, como un extintor, es cambiar la pregunta. Y puede ir con un modelo local.</p>
           <ul class="chips"><li>IA multimodal</li><li>Modelo local</li><li>Detección de objetos</li><li>Python</li></ul>
-          <a class="repo" href="https://github.com/aseinotegi/poi-vision-inspector" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/vision" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><a class="repo" href="https://github.com/aseinotegi/poi-vision-inspector" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a></div>
         </div>
         
         
@@ -451,7 +461,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">04</span>Unified Namespace</p>
           <p>Es la pieza que hace que todo lo demás encaje. Quien quiera un dato sabe dónde buscarlo sin preguntar quién lo ha generado. En el repo tienes esta misma historia funcionando, se arranca con un solo comando y no hace falta hardware.</p>
           <ul class="chips"><li>Unified Namespace</li><li>MQTT</li><li>Modelado de datos</li></ul>
-          <a class="repo" href="https://github.com/aseinotegi/industrial-uns-demo" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/uns" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><a class="repo" href="https://github.com/aseinotegi/industrial-uns-demo" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a></div>
         </div>
         
         
@@ -464,7 +474,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">05</span>Adquisición de PLC</p>
           <p>Yo empecé aquí, programando y poniendo en marcha PLCs. Ahora hago las pasarelas que leen sus datos sin tocar el proceso y solo publican lo que cambia. Las he montado en naval, alimentación y proceso.</p>
           <ul class="chips"><li>Siemens S7</li><li>Profinet</li><li>Modbus</li><li>OPC UA</li></ul>
-          <a class="repo" href="https://github.com/aseinotegi/plc-mqtt-gateway" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/plc" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><a class="repo" href="https://github.com/aseinotegi/plc-mqtt-gateway" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a></div>
         </div>
         
         
@@ -477,7 +487,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">06</span>Reglas y alarmas</p>
           <p>Servicios así los tengo funcionando con flotas de robots. Al principio solo avisan, y cuando ya te fías de ellos los dejas actuar.</p>
           <ul class="chips"><li>Reglas en tiempo real</li><li>MQTT</li><li>Python</li></ul>
-          <a class="repo" href="https://github.com/aseinotegi/robot-fleet-watchdogs" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/reglas" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><a class="repo" href="https://github.com/aseinotegi/robot-fleet-watchdogs" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Ver el código <span aria-hidden="true">↗</span></a></div>
         </div>
         
         
@@ -490,7 +500,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">07</span>Robótica</p>
           <p>Antes de esto pasé años en puestas en marcha, programando robots y PLCs en Estados Unidos, Inglaterra, Francia, Japón y Hungría. Ahora llevo robots autónomos que hacen rondas de inspección en refinerías.</p>
           <ul class="chips"><li>Robótica</li><li>PLC</li><li>Puesta en marcha</li></ul>
-          <p class="norepo">Trabajo para clientes, sin repo público</p>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><p class="norepo">Trabajo para clientes, sin repo público</p></div>
         </div>
         
         
@@ -503,7 +513,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
           <p class="tag"><span class="num">08</span>Plataforma</p>
           <p>Es lo que ve la gente de planta. En la plataforma que hice para los robots de inspección, además de las gráficas, se planifican las misiones de varias plantas y se guardan el histórico, los indicadores y los informes.</p>
           <ul class="chips"><li>APIs REST</li><li>Bases de datos</li><li>Contenedores</li></ul>
-          <a class="repo" href="https://github.com/aseinotegi/robot-mission-scheduler-showcase" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Leer el caso <span aria-hidden="true">↗</span></a>
+          <div class="see"><a class="live" href="https://demo.andersein.com/#/" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a><a class="repo" href="https://github.com/aseinotegi/robot-mission-scheduler-showcase" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>Leer el caso <span aria-hidden="true">↗</span></a></div>
         </div>
         
         
@@ -529,6 +539,7 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
         <p class="lead">Soy de Donostia y llevo más de diez años en la industria. Empecé a pie de máquina, programando PLCs y poniendo en marcha líneas fuera de casa, y poco a poco me fui pasando al dato. Hoy me dedico a que la información de planta llegue a quien la necesita, venga de un PLC, de una cámara o de un robot.</p>
         <div class="ctas">
           <a class="btn primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn ghost" href="https://demo.andersein.com/" target="_blank" rel="noopener">Demo en directo</a>
           <a class="btn ghost" href="https://cv.andersein.com/" target="_blank" rel="noopener" data-cv>Ver CV</a>
           <a class="btn ghost" href="https://www.linkedin.com/in/ander-sein-a24097195/">LinkedIn</a>
         </div>
@@ -545,42 +556,42 @@ footer .copy { margin: 40px 0 0; font-size: 13px; }
         <li>
           <span class="n">01</span>
           <div class="pi-main"><strong>Datos en tiempo real por MQTT</strong><span>Captura de datos · Trazabilidad por MQTT en tiempo real</span></div>
-          <div class="pi-links"><a href="#dato" data-go="2">Verlo en la pizarra</a><a href="https://github.com/aseinotegi/mqtt-traceability-dashboard-showcase" target="_blank" rel="noopener">Caso ↗</a></div>
+          <div class="pi-links"><a href="#dato" data-go="2">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/mqtt" target="_blank" rel="noopener">En directo ↗</a><a href="https://github.com/aseinotegi/mqtt-traceability-dashboard-showcase" target="_blank" rel="noopener">Caso ↗</a></div>
         </li>
         <li>
           <span class="n">02</span>
           <div class="pi-main"><strong>PC industrial con servicios en contenedores</strong><span>Edge</span></div>
-          <div class="pi-links"><a href="#dato" data-go="3">Verlo en la pizarra</a><em>sin repo público</em></div>
+          <div class="pi-links"><a href="#dato" data-go="3">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/arquitectura" target="_blank" rel="noopener">En directo ↗</a><em>sin repo público</em></div>
         </li>
         <li>
           <span class="n">03</span>
           <div class="pi-main"><strong>Lectura de medidores con visión</strong><span>Visión artificial · Inspección visual por punto de interés</span></div>
-          <div class="pi-links"><a href="#dato" data-go="4">Verlo en la pizarra</a><a href="https://github.com/aseinotegi/poi-vision-inspector" target="_blank" rel="noopener">Código ↗</a></div>
+          <div class="pi-links"><a href="#dato" data-go="4">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/vision" target="_blank" rel="noopener">En directo ↗</a><a href="https://github.com/aseinotegi/poi-vision-inspector" target="_blank" rel="noopener">Código ↗</a></div>
         </li>
         <li>
           <span class="n">04</span>
           <div class="pi-main"><strong>Unified Namespace para datos de planta</strong><span>Unified Namespace · Unified Namespace de una planta</span></div>
-          <div class="pi-links"><a href="#dato" data-go="5">Verlo en la pizarra</a><a href="https://github.com/aseinotegi/industrial-uns-demo" target="_blank" rel="noopener">Código ↗</a></div>
+          <div class="pi-links"><a href="#dato" data-go="5">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/uns" target="_blank" rel="noopener">En directo ↗</a><a href="https://github.com/aseinotegi/industrial-uns-demo" target="_blank" rel="noopener">Código ↗</a></div>
         </li>
         <li>
           <span class="n">05</span>
           <div class="pi-main"><strong>Adquisición de datos de PLC</strong><span>Adquisición de PLC · Pasarela de PLC a MQTT</span></div>
-          <div class="pi-links"><a href="#dato" data-go="6">Verlo en la pizarra</a><a href="https://github.com/aseinotegi/plc-mqtt-gateway" target="_blank" rel="noopener">Código ↗</a></div>
+          <div class="pi-links"><a href="#dato" data-go="6">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/plc" target="_blank" rel="noopener">En directo ↗</a><a href="https://github.com/aseinotegi/plc-mqtt-gateway" target="_blank" rel="noopener">Código ↗</a></div>
         </li>
         <li>
           <span class="n">06</span>
           <div class="pi-main"><strong>Reglas y alarmas en tiempo real</strong><span>Reglas y alarmas · Watchdogs para flotas de robots</span></div>
-          <div class="pi-links"><a href="#dato" data-go="7">Verlo en la pizarra</a><a href="https://github.com/aseinotegi/robot-fleet-watchdogs" target="_blank" rel="noopener">Código ↗</a></div>
+          <div class="pi-links"><a href="#dato" data-go="7">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/reglas" target="_blank" rel="noopener">En directo ↗</a><a href="https://github.com/aseinotegi/robot-fleet-watchdogs" target="_blank" rel="noopener">Código ↗</a></div>
         </li>
         <li>
           <span class="n">07</span>
           <div class="pi-main"><strong>Robots y PLCs, de la puesta en marcha a la inspección autónoma</strong><span>Robótica</span></div>
-          <div class="pi-links"><a href="#dato" data-go="8">Verlo en la pizarra</a><em>sin repo público</em></div>
+          <div class="pi-links"><a href="#dato" data-go="8">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/" target="_blank" rel="noopener">En directo ↗</a><em>sin repo público</em></div>
         </li>
         <li>
           <span class="n">08</span>
           <div class="pi-main"><strong>Plataforma de misiones para robots de inspección</strong><span>Plataforma · Plataforma de misiones para robots</span></div>
-          <div class="pi-links"><a href="#dato" data-go="9">Verlo en la pizarra</a><a href="https://github.com/aseinotegi/robot-mission-scheduler-showcase" target="_blank" rel="noopener">Caso ↗</a></div>
+          <div class="pi-links"><a href="#dato" data-go="9">Verlo en la pizarra</a><a class="live" href="https://demo.andersein.com/#/" target="_blank" rel="noopener">En directo ↗</a><a href="https://github.com/aseinotegi/robot-mission-scheduler-showcase" target="_blank" rel="noopener">Caso ↗</a></div>
         </li>
       </ol>
     </section>

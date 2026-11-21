@@ -6,18 +6,22 @@
  * single source for every project.
  */
 
+const { liveUrl } = require('./story');
+
 function renderProjectRow(scene, sceneIndex) {
   const { number, area, indexTitle, repo, status } = scene.project;
   const subtitle = repo ? `${area} · ${repo.title}` : area;
   const link = repo
     ? `<a href="${repo.url}" target="_blank" rel="noopener">${repo.kind === 'code' ? 'Código' : 'Caso'} ↗</a>`
     : `<em>${status || 'sin repo público'}</em>`;
+  const live = liveUrl(scene.project);
+  const liveLink = live ? `<a class="live" href="${live}" target="_blank" rel="noopener">En directo ↗</a>` : '';
 
   return `
         <li>
           <span class="n">${number}</span>
           <div class="pi-main"><strong>${indexTitle}</strong><span>${subtitle}</span></div>
-          <div class="pi-links"><a href="#dato" data-go="${sceneIndex}">Verlo en la pizarra</a>${link}</div>
+          <div class="pi-links"><a href="#dato" data-go="${sceneIndex}">Verlo en la pizarra</a>${liveLink}${link}</div>
         </li>`;
 }
 

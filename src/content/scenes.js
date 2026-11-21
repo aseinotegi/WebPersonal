@@ -12,6 +12,8 @@
  *   project  the real work behind the piece circled on the drawing
  *     mine   that work, told in first person
  *     repo   kind 'code' (runs without hardware) or 'case' (written case study)
+ *     live   the page of the live demo (demo.andersein.com) where it can be seen
+ *            working: 'vision' opens #/vision, '' the plant map
  *
  * Scenes with a `project` are also listed in the projects index below the story.
  */
@@ -38,6 +40,7 @@ const scenes = [
     text: 'El robot la manda por MQTT al PC industrial que hay en la propia planta, y llega al momento.',
     project: {
       number: '01',
+      live: 'mqtt',
       area: 'Captura de datos',
       indexTitle: 'Datos en tiempo real por MQTT',
       mine: 'Llevo años montando esta capa en plantas, para robots, máquinas y sensores. Cada uno publica lo suyo y el que lo necesita se suscribe, sin tocar a los demás.',
@@ -52,6 +55,7 @@ const scenes = [
     text: 'En el PC no hay un programa gigante. Hay varios servicios pequeños, cada uno en su contenedor, y uno de ellos recoge la foto.',
     project: {
       number: '02',
+      live: 'arquitectura',
       area: 'Edge',
       indexTitle: 'PC industrial con servicios en contenedores',
       mine: 'Así lo despliego siempre. Si un servicio se cae se levanta solo y el resto ni se entera, y para actualizar uno no hay que parar nada. Son equipos que están 24 horas encendidos en planta.',
@@ -65,6 +69,7 @@ const scenes = [
     text: 'Primero hay que saber que lo que sale en la foto es un manómetro, y luego leer la aguja. Salen dos resultados, la clase con su confianza y la lectura, 6,8 bar.',
     project: {
       number: '03',
+      live: 'vision',
       area: 'Visión artificial',
       indexTitle: 'Lectura de medidores con visión',
       mine: 'En planta entrené un detector con fotos reales. En el repo lo hago de otra forma. El robot sabe en qué punto está y qué tiene delante, así que se lo pregunto a un modelo multimodal. Un caso nuevo, como un extintor, es cambiar la pregunta. Y puede ir con un modelo local.',
@@ -79,6 +84,7 @@ const scenes = [
     text: 'La lectura se publica en el Unified Namespace, un árbol con toda la planta ordenada por zona, equipo y dato. Ahí queda pi-104/presion con 6,8.',
     project: {
       number: '04',
+      live: 'uns',
       area: 'Unified Namespace',
       indexTitle: 'Unified Namespace para datos de planta',
       mine: 'Es la pieza que hace que todo lo demás encaje. Quien quiera un dato sabe dónde buscarlo sin preguntar quién lo ha generado. En el repo tienes esta misma historia funcionando, se arranca con un solo comando y no hace falta hardware.',
@@ -93,6 +99,7 @@ const scenes = [
     text: 'En la misma tubería hay un transmisor, el PT-104, cableado al PLC por 4-20 mA. El PLC también publica en el UNS, y marca 6,7 bar.',
     project: {
       number: '05',
+      live: 'plc',
       area: 'Adquisición de PLC',
       indexTitle: 'Adquisición de datos de PLC',
       mine: 'Yo empecé aquí, programando y poniendo en marcha PLCs. Ahora hago las pasarelas que leen sus datos sin tocar el proceso y solo publican lo que cambia. Las he montado en naval, alimentación y proceso.',
@@ -107,6 +114,7 @@ const scenes = [
     text: 'Un servicio escucha el UNS y compara la cámara con el PLC. Los dos pasan de 6 bar, así que no es un error de lectura. La alarma es de verdad y se le pide al robot que cierre la XV-104.',
     project: {
       number: '06',
+      live: 'reglas',
       area: 'Reglas y alarmas',
       indexTitle: 'Reglas y alarmas en tiempo real',
       mine: 'Servicios así los tengo funcionando con flotas de robots. Al principio solo avisan, y cuando ya te fías de ellos los dejas actuar.',
@@ -121,6 +129,7 @@ const scenes = [
     text: 'La XV-104 no tiene actuador, se cierra a mano. Para eso está el robot, que vuelve, agarra el volante con el brazo y la cierra.',
     project: {
       number: '07',
+      live: '',
       area: 'Robótica',
       indexTitle: 'Robots y PLCs, de la puesta en marcha a la inspección autónoma',
       mine: 'Antes de esto pasé años en puestas en marcha, programando robots y PLCs en Estados Unidos, Inglaterra, Francia, Japón y Hungría. Ahora llevo robots autónomos que hacen rondas de inspección en refinerías.',
@@ -134,6 +143,7 @@ const scenes = [
     text: 'Con la válvula cerrada la presión baja y el PLC lo publica. El dashboard lee del UNS y enseña el pico de 6,8 bar, el momento del cierre y la vuelta a 4,2.',
     project: {
       number: '08',
+      live: '',
       area: 'Plataforma',
       indexTitle: 'Plataforma de misiones para robots de inspección',
       mine: 'Es lo que ve la gente de planta. En la plataforma que hice para los robots de inspección, además de las gráficas, se planifican las misiones de varias plantas y se guardan el histórico, los indicadores y los informes.',

@@ -5,17 +5,29 @@
  * scene and the step dots. Animation happens in the browser (src/client).
  */
 
+const { person } = require('../config/site');
+
 const list = (items, render) => items.map(render).join('');
 
 const LINK_TEXT = { code: 'Ver el código', case: 'Leer el caso' };
 
-/** Where the project can be seen: its repository, a coming repo, or client work. */
+/** The page of the live demo where this project is working, or '' if it has none. */
+function liveUrl(project) {
+  return typeof project.live === 'string' ? `${person.demo}#/${project.live}` : '';
+}
+
+/** Where the project can be seen: working in the live demo, and its repository,
+ * a coming repo, or client work. */
 function renderProjectLink(project) {
   const { repo, status } = project;
-  if (repo) {
-    return `<a class="repo" href="${repo.url}" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>${LINK_TEXT[repo.kind]} <span aria-hidden="true">↗</span></a>`;
-  }
-  return `<p class="norepo">${status ? 'Repo en camino' : 'Trabajo para clientes, sin repo público'}</p>`;
+  const live = liveUrl(project);
+  const liveLink = live
+    ? `<a class="live" href="${live}" target="_blank" rel="noopener"><span class="pulse" aria-hidden="true"></span>Verlo en directo <span aria-hidden="true">↗</span></a>`
+    : '';
+  const source = repo
+    ? `<a class="repo" href="${repo.url}" target="_blank" rel="noopener"><span class="gh" aria-hidden="true">GitHub</span>${LINK_TEXT[repo.kind]} <span aria-hidden="true">↗</span></a>`
+    : `<p class="norepo">${status ? 'Repo en camino' : 'Trabajo para clientes, sin repo público'}</p>`;
+  return liveLink ? `<div class="see">${liveLink}${source}</div>` : source;
 }
 
 /** The project behind the piece circled on the drawing, numbered like its mark. */
@@ -38,7 +50,7 @@ function renderCaption(scene, index, total) {
         <p class="lvl">${scene.zone}</p>
         ${heading}
         <p class="txt">${scene.text}</p>${scene.project ? renderProject(scene) : ''}
-        ${index === 0 ? '<p class="hint">Sigue al robot <span aria-hidden="true">↓</span></p>' : ''}
+        ${index === 0 ? `<p class="hint">Sigue al robot <span aria-hidden="true">↓</span></p><p class="or-live">o mira la planta <a href="${person.demo}" target="_blank" rel="noopener">funcionando en directo ↗</a></p>` : ''}
         ${index === total - 1 ? '<a class="btn primary" href="#proyectos">Ver la lista <span aria-hidden="true">↓</span></a>' : ''}
       </article>`;
 }
@@ -71,4 +83,4 @@ function renderStory({ scenes, plant }) {
   </section>`;
 }
 
-module.exports = { renderStory };
+module.exports = { renderStory, liveUrl };

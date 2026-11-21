@@ -50,6 +50,7 @@ const person = {
   linkedin: { url: 'https://www.linkedin.com/in/ander-sein-a24097195/', handle: 'ander-sein-a24097195' },
   github: { url: 'https://github.com/aseinotegi', handle: 'aseinotegi' },
   cv: 'https://cv.andersein.com/', // services/cv-gate
+  demo: 'https://demo.andersein.com/', // the plant of the story, running (industrial-uns-demo)
   jobTitle: 'Ingeniero de IIoT y automatización industrial',
   // for search engines (schema.org Person)
   knowsAbout: ['IIoT', 'Automatización industrial', 'PLC', 'Siemens S7', 'OPC UA', 'MQTT', 'Unified Namespace', 'Visión artificial', 'Robots de inspección', 'Docker', 'Python'],
